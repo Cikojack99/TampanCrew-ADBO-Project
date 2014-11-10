@@ -76,7 +76,7 @@ public abstract class Level {
     }
     
     /**
-     * Method ini berfungsi untuk memanggil attribute time yang akan digunakan 
+     * Method ini berfungsi untuk memanggil attribute playerStartingPosition yang akan digunakan 
      * oleh class Board dan Engine.
      * @return Posisi awal seorang player.
      */
@@ -96,7 +96,7 @@ public abstract class Level {
     }
     
     /**
-     * Method ini berfungsi untuk memanggil attribute time yang akan digunakan 
+     * Method ini berfungsi untuk memanggil sebuah array Wall yang akan digunakan 
      * oleh class Board dan Engine.
      * @return Array Walls.
      */
@@ -106,7 +106,7 @@ public abstract class Level {
     }
     
     /**
-     * Method ini berfungsi untuk memanggil attribute time yang akan digunakan 
+     * Method ini berfungsi untuk memanggil sebuah array Item yang akan digunakan 
      * oleh class Board dan Engine.
      * @return Array Items.
      */
