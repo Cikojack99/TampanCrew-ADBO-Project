@@ -11,7 +11,7 @@ import java.awt.Point;
  * class untuk objek yang dapat diambil
  * @author User
  */
-public abstract class Objectz {
+public abstract class Item {
     /**
      *type adalah penanda dalam bentuk string jenis objek ini
      */
