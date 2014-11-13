@@ -1,21 +1,21 @@
+/*
+ * class untuk objek yang dapat diambil
+ * @author 
+ */
 
+package Chip.Component;
 import java.awt.Point;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * class untuk objek yang dapat diambil
- * @author User
+ *
+ * @author TampanCrew Arts
+ * @version 0.01 ALPHA
  */
-public abstract class Item {
-    /**
-     *type adalah penanda dalam bentuk string jenis objek ini
-     */
-    private final String type;
+public abstract class Item extends Maps {
+//    /**
+//     *type adalah penanda dalam bentuk string jenis objek ini
+//     */
+//    private final String type;
     
     /**
      * position adalah koordinat objek ini
@@ -27,8 +27,8 @@ public abstract class Item {
      * @param type string untuk jenis objek
      * @param position koordinat objek dalam bentuk Point(x, y) 
     */
-    public Objectz(String type, Point position) {
-        this.type = type;
+    public Item(String type, Point position) {
+//        this.type = type;
         this.position = position;
     }
     
@@ -37,14 +37,14 @@ public abstract class Item {
      */
     public abstract void effect();
     
-    /**
-     * mengembalikan jenis objek ini
-     * @return jenis objek ini
-     */
-    public String getType()
-    {
-        return type;
-    }
+//    /**
+//     * mengembalikan jenis objek ini
+//     * @return jenis objek ini
+//     */
+//    public String getType()
+//    {
+//        return type;
+//    }
     
     /**
      * mengembalikan koordinat objek

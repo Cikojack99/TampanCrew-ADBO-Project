@@ -1,5 +1,9 @@
+package Chip.Component;
+
 
 import java.awt.Point;
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,7 +15,7 @@ import java.awt.Point;
  * class untuk tembok
  * @author User
  */
-public class Wall {
+public class Wall extends Maps {
     /**
      * boolean apakah tembok dapat ditembus atau tidak
      */
@@ -50,3 +54,4 @@ public class Wall {
         return position;
     }
 }
+

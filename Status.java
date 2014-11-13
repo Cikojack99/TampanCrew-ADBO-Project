@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 
+package Chip.Component;
 /**
  *
- * @author User
+ * @author TampanCrew Arts
+ * @version 0.01 ALPHA
  */
 public class Status {
     private boolean dead;
@@ -32,6 +34,12 @@ public class Status {
     public int countDown()
     {
         time--;
+        return time;
+    }
+    
+    public int timePenalty(int waktu)
+    {
+        time =- waktu;
         return time;
     }
     
