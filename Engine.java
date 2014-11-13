@@ -5,13 +5,15 @@
 package Chip.Engine;
 
 import Chip.Component.*;
+import Chip.Component.Items.EMP;
+import Chip.Component.Obstacles.*;
 import Chip.Gui.Board;
 import java.awt.Point;
 
 /**
  *
  * @author TampanCrew Arts
- * @version 0.01 ALPHA
+ * @version 0.01 VinS_Alpha_Run
  */
 public class Engine {
     /**
@@ -62,11 +64,14 @@ public class Engine {
      * @param direction null
      * @return null
      */
-    public boolean checkLegalMove(int direction)
+    public void checkLegalMove(int direction)
     {
         
-        //atas
+        //ATAS BAWAH KIRI KANANNYA ATUR NDIRI SET HAHAHAHHA
         Wall wallTemplate = new Wall(false, new Point(0, 0));
+        Obstacle obs = new Laser();
+        Item item = new EMP(null, null);
+        
         int x = Integer.parseInt(Double.toString(player.getCurPosition().getX()));
         int y = Integer.parseInt(Double.toString(player.getCurPosition().getY()));
         
@@ -78,31 +83,19 @@ public class Engine {
                     status.timePenalty(4);
                 } else {
 //                    board.drawSecret();
-                    peta[x][y].getClass().getSuperclass();
+                    this.player.move(0);
                 }
-            }
-            
-            
-    /** if(direction==0)
-        {
-            for(int i=0;i<walls.length;i++)
+            } else if(peta[x][y].getClass().getSuperclass()== obs.getClass().getSuperclass()) //ini obstacle
             {
-                player.getCurPosition().getX()+1==walls[0].
+                //cek moveable(inventori player)
+                //buat cek ada item buat matiin ato ga
+            } else if(peta[x][y].getClass().getSuperclass()== item.getClass().getSuperclass()) //ini item
+            {
+                //ambil item
+                //delete kordinat
             }
-        }
-        else if(direction==1)
-        {
             
-        }
-        else if(direction==2)
-        {
             
-        }
-        else if(direction==3)
-        {
-            
-        }
-    */
-        return false;
+//        return false;
     }
 }
