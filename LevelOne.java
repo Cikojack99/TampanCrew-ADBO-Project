@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 
-package Chip.Component.Obstacles;
-
-import Chip.Component.*;
+package Chip.Component.Levels;
 
 /**
  *
- * @author Caustri Kennel
+ * @author Seto
  */
-public class Laser extends Obstacle{
+public class LevelOne {
     
 }

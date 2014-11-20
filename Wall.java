@@ -15,7 +15,7 @@ import java.awt.Point;
  * class untuk tembok
  * @author User
  */
-public class Wall extends Maps {
+public class Wall{
     /**
      * boolean apakah tembok dapat ditembus atau tidak
      */
@@ -54,4 +54,3 @@ public class Wall extends Maps {
         return position;
     }
 }
-

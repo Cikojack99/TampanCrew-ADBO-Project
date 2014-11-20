@@ -37,12 +37,6 @@ public class Status {
         return time;
     }
     
-    public int timePenalty(int waktu)
-    {
-        time =- waktu;
-        return time;
-    }
-    
     public void levelNowClear()
     {
         clear=!clear;
@@ -51,5 +45,13 @@ public class Status {
     public void playerIsDead()
     {
         dead=!dead;
+    }
+    
+    public void timePenalty(int penalty)
+    {
+        for(int i=0;i<penalty;i++)
+        {
+            countDown();
+        }
     }
 }

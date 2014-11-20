@@ -3,24 +3,28 @@
  * @author 
  */
 
-package Chip.Component;
+package Chip.Component.Items;
 import java.awt.Point;
+import Chip.Component.*;
 
 /**
  *
  * @author TampanCrew Arts
  * @version 0.01 ALPHA
  */
-public abstract class Item extends Maps {
-//    /**
-//     *type adalah penanda dalam bentuk string jenis objek ini
-//     */
-//    private final String type;
+public abstract class Item{
+    /**
+     * type adalah penanda dalam bentuk string jenis objek ini.
+     * 0=Diamond, 1=SilverKey, 2=MirrorSuit, 3=SilentBoots, 4=KeyCode, 5=FakeKey.
+     */
+    protected final String type;
     
     /**
      * position adalah koordinat objek ini
      */
-    private Point position;
+    protected Point position;
+    
+    protected Boolean takenStatus;
 
     /**
      * konstraktor kelas objek
@@ -28,7 +32,8 @@ public abstract class Item extends Maps {
      * @param position koordinat objek dalam bentuk Point(x, y) 
     */
     public Item(String type, Point position) {
-//        this.type = type;
+        takenStatus=false;
+        this.type = type;
         this.position = position;
     }
     
@@ -37,29 +42,34 @@ public abstract class Item extends Maps {
      */
     public abstract void effect();
     
-//    /**
-//     * mengembalikan jenis objek ini
-//     * @return jenis objek ini
-//     */
-//    public String getType()
-//    {
-//        return type;
-//    }
+    /**
+     * mengembalikan jenis objek ini
+     * @return jenis objek ini
+     */
+    public String getType()
+    {
+        return type;
+    }
     
     /**
      * mengembalikan koordinat objek
      * @return koordinat objek
      */
-    public Point getCoordinate()
+    public Point getPosition()
     {
         return position;
     }
     
     /**
-     * memindahkan koordinat objek setelah diambil
+     * Mengembalikan apakah sebuah item sudah diambil atau belum.
      */
-    public void deleteCoordinate()
+    public boolean isTaken()
     {
-        position= new Point(0, 0);
+        return takenStatus;
+    }
+    
+    public void take()
+    {
+        takenStatus=true;
     }
 }

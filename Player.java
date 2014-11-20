@@ -4,6 +4,7 @@
 
 package Chip.Component;
 import java.awt.Point;
+import java.util.LinkedList;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Player {
     /**
      * (Dev ALPHA NOTE: Inventory mungkin diimplementasikan di class player)
      */
-    private Item[] inventory;
+    private LinkedList inventory;
     
     /**
      * Constructur ini berfungsi untuk menginisialisasikan posisi kordinat awal 
@@ -29,6 +30,7 @@ public class Player {
      */
     public Player(Point startingPosition)
     {
+        inventory=new LinkedList();
         currentPosition=startingPosition;
     }
     
@@ -68,5 +70,25 @@ public class Player {
     public Point getCurPosition()
     {
         return currentPosition;
+    }
+    
+    public void takeItem(String itemType)
+    {
+        inventory.addFirst(itemType);
+    }
+    
+    public boolean checkInventory(String itemType)
+    {
+        String checker="";
+        for(int i=0;i<inventory.size();i++)
+        {
+            checker=(String)inventory.removeFirst();
+            if(checker.compareToIgnoreCase(itemType)==1)
+            {
+                return true;
+            }
+            inventory.addLast(checker);
+        }
+        return false;
     }
 }

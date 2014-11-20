@@ -6,12 +6,10 @@
 
 package Chip.Component.Obstacles;
 
-import Chip.Component.*;
-
 /**
  *
- * @author Caustri Kennel
+ * @author Seto
  */
-public class Laser extends Obstacle{
+public class KeyCodeTerminal {
     
 }

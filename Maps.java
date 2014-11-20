@@ -8,7 +8,18 @@ package Chip.Component;
 
 /**
  *
- * @author Caustri Kennel
+ * @author TampanCrew arts
+ * @version 0.03 ALPHA
  */
-public abstract class Maps {
+public class Maps {
+    private String type;
+    
+    public Maps(String type){
+        this.type=type;
+    }
+    
+    public String getType()
+    {
+        return type;
+    }
 }
