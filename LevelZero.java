@@ -23,72 +23,80 @@ public class LevelZero extends Level {
     @Override
     public void initializeWalls() {
         Maps wall = new Maps("Wall");
-        for (int i = 0; i < 22; i++) {
-            for (int j = 0; j < 30; j++) {
-                if(i==0 && j>22 && j<28)
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==1 && ((j>16 && j<22) || j==23 || j==23))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==2 && ((j>11 && j<18) || (j>20 && j<24) || j==25 || j==27))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==3 && (j==12 || j==19 || j==27))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==4 && (j==12 || (j>14 && j<26) || j==27))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==5 && ((j>3 && j<13) || (j>14 && j<26) || j==27 || j==29))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==6 && (j==4 || j==9 || j==11 || j==22 || j==23 || j==29))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==7 && (j==4 || j==9 || j==11 || j==29))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==8 && (j==4 || j==11 || j==22 || j==23 || j==29))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==9 && (j==4 || j==11 || (j>15&&j<20) || j==22 || j==29))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==10 && (j==4 || j==11))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==11 && (j==4 || j==9 || j==11))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==12 && (j==4 || j==9 || j==11 || j==29))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==13 && (j==4 || j==5 || (j>7 && j<13) || (j>14 && j<30)))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==14 && (j==4 || j==19 || j==24))
-                {
-                    petaLevel[i][j] = wall;
-                } else if((i==15 || i==16) && (j==4 || j==19 || j==22 || j==24))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==17 && (j==4 || j==22 || j==24))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==18 && ((j>=0 && j<6) || (j>8 && j<23) || j==24))
-                {
-                    petaLevel[i][j] = wall;
-                } else if((i==19 || i==20) && (j==0 || j==4 || j==24))
-                {
-                    petaLevel[i][j] = wall;
-                } else if(i==21 && (j>=0 && j<25))
-                {
-                    petaLevel[i][j] = wall;
-                }
-            }
-        }
         
+        for (int i = 5; i <= 21; i++) {
+            petaLevel[4][i]=wall;
+        }
+        for (int i = 5; i <= 12; i++) {
+            petaLevel[i][5]=wall;
+        }
+        for (int i = 12; i <= 17; i++) {
+            petaLevel[i][2]=wall;
+        }
+        for (int i = 17; i <= 21; i++) {
+            petaLevel[i][1]=wall;
+        }
+        for (int i = 21; i <= 23; i++) {
+            petaLevel[i][2]=wall;
+        }
+        for (int i = 23; i <= 27; i++) {
+            petaLevel[i][0]=wall;
+        }
+        for (int i = 1; i <= 5; i++) {
+            petaLevel[27][i]=wall;
+        }
+        for (int i = 5; i <= 9; i++) {
+            petaLevel[29][i]=wall;
+        }
+        for (int i = 15; i <= 25; i++) {
+            petaLevel[i][4]=wall;
+            petaLevel[i][5]=wall;
+        }
+        for (int i = 16; i <= 19; i++) {
+            petaLevel[i][9]=wall;
+        }
+        for (int i = 6; i <= 9; i++) {
+            petaLevel[22][i]=wall;
+        }
+        for (int i = 6; i <= 12; i++) {
+            petaLevel[11][i]=wall;
+        }
+        for (int i = 8; i <= 12; i++) {
+            petaLevel[i][13]=wall;
+        }
+        for (int i = 15; i <= 29; i++) {
+            petaLevel[i][13]=wall;
+        }
+        for (int i = 9; i <= 22; i++) {
+            petaLevel[i][18]=wall;
+        }
+        for (int i = 5; i <= 24; i++) {
+            petaLevel[i][21]=wall;
+        }
+        for (int i = 14; i <= 20; i++) {
+            petaLevel[24][i]=wall;
+        }
+        petaLevel[23][1]=wall;
+        petaLevel[25][2]=wall;
+        petaLevel[19][3]=wall;
+        petaLevel[12][3]=wall;
+        petaLevel[12][4]=wall;
+        petaLevel[28][5]=wall;
+        petaLevel[23][6]=wall;
+        petaLevel[9][6]=wall;
+        petaLevel[9][7]=wall;
+        petaLevel[23][8]=wall;
+        petaLevel[9][11]=wall;
+        petaLevel[9][12]=wall;
+        petaLevel[29][12]=wall;
+        petaLevel[5][13]=wall;
+        petaLevel[19][14]=wall;
+        petaLevel[19][15]=wall;
+        petaLevel[19][16]=wall;
+        petaLevel[22][15]=wall;
+        petaLevel[22][16]=wall;
+        petaLevel[22][17]=wall;
+        petaLevel[5][18]=wall;
     }
 
     @Override
@@ -108,7 +116,34 @@ public class LevelZero extends Level {
 
     @Override
     public void drawSecret() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Maps wall = new Maps("Wall");
+        for (int i = 0; i <= 3; i++) {
+            petaLevel[i][18]=wall;
+        }
+        for (int i = 0; i <= 3; i++) {
+            petaLevel[i][21]=wall;
+        }
+        petaLevel[0][19]=wall;
+        petaLevel[0][20]=wall;
     }
     
+    public Maps[][] getMap()
+    {
+        return petaLevel;
+    }
+    
+    public int getHeight()
+    {
+        return 22;
+    }
+    
+    public int getWidth()
+    {
+        return 30;
+    }
+    
+    public Maps getContent(int i, int j)
+    {
+        return petaLevel[i][j];
+    }
 }
