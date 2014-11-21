@@ -10,6 +10,11 @@ package Chip.Component.Obstacles;
  *
  * @author Seto
  */
-public class KeyCodedDoors {
-    
+public class GreenLockedDoor extends Obstacle {
+     
+    public GreenLockedDoor()
+    {
+        antiObstacle="greenKey";
+        resInDeath=false;
+    }
 }

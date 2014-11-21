@@ -6,20 +6,14 @@
 
 package Chip.Component.Items;
 
-import java.awt.Point;
-
 /**
  *
  * @author Seto
  */
-public class SilentBoots extends Item{
+public class GreenKey extends Item {
     
-    public SilentBoots(String type, Point position) {
-        super(type, position);
-    }
-
-    @Override
-    public void effect() {
-        take();
+    public GreenKey() {
+        super();
+        type="greenKey";
     }
 }

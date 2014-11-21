@@ -12,15 +12,10 @@ import java.awt.Point;
  *
  * @author Seto
  */
-public class KeyCode extends Item {
-
-    public KeyCode(String type, Point position) {
-        super(type, position);
-    }
-
-    @Override
-    public void effect() {
-        take();
-    }
+public class SilentBoots extends Item{
     
+   public SilentBoots() {
+        super();
+        type="silentBoots";
+    }
 }

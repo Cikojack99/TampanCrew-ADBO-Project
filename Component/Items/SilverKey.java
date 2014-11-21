@@ -12,15 +12,10 @@ import java.awt.Point;
  *
  * @author Seto
  */
-public class MirrorSuit extends Item {
+public class SilverKey extends Item{
 
-    public MirrorSuit(String type, Point position) {
-        super(type, position);
+   public SilverKey() {
+        super();
+        type="silverKey";
     }
-
-    @Override
-    public void effect() {
-        take();
-    }
-    
 }

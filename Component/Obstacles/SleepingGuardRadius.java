@@ -10,6 +10,11 @@ package Chip.Component.Obstacles;
  *
  * @author Seto
  */
-public class SleepingGuard {
-    
+public class SleepingGuardRadius extends Obstacle {
+     
+    public SleepingGuardRadius()
+    {
+        antiObstacle="silentBoots";
+        resInDeath=true;
+    }
 }

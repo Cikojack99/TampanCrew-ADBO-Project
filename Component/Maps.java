@@ -13,13 +13,25 @@ package Chip.Component;
  */
 public class Maps {
     private String type;
+    private String typeKind;
     
     public Maps(String type){
         this.type=type;
     }
     
+    public Maps(String type,String TypeKind)
+    {
+        this(type);
+        this.typeKind=typeKind;
+    }
+    
     public String getType()
     {
         return type;
+    }
+    
+    public String getTypeKind()
+    {
+        return typeKind;
     }
 }

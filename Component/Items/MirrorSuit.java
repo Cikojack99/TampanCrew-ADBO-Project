@@ -12,16 +12,10 @@ import java.awt.Point;
  *
  * @author Seto
  */
-public class Diamond extends Item{
+public class MirrorSuit extends Item {
 
-    public Diamond(String type, Point position) {
-        super(type, position);
+    public MirrorSuit() {
+        super();
+        type="mirrorSuit";
     }
-
-    @Override
-    public void effect() {
-        take();
-    }
-        
-    
 }

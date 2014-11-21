@@ -12,14 +12,10 @@ import java.awt.Point;
  *
  * @author Seto
  */
-public class SilverKey extends Item{
+public class BrownKey extends Item{
 
-    public SilverKey(String type, Point position) {
-        super(type, position);
-    }
-
-    @Override
-    public void effect() {
-        take();
+    public BrownKey() {
+        super();
+        type="brownKey";
     }
 }

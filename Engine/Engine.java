@@ -66,7 +66,7 @@ public class Engine {
      * @param direction null
      * @return null
      */
-    public void runMovingCondition(int direction)
+    public void runCondition(int direction)
     {   
         int x=0;
         int y=0;
@@ -94,25 +94,11 @@ public class Engine {
         {
             if(peta[x][y].getType().compareToIgnoreCase("wall")==1)
             {
-                for(int i=0;i<walls.length;i++)
-                {
-                    if((walls[i].getPosition().x==x)&&(walls[i].getPosition().y==y))
-                    {
-                        if(walls[i].checkMoveable()==false)
-                        {
-                            status.timePenalty(4);
-                        }
-                        else
-                        {
-                            player.move(direction);
-                            //board do some secret stuff
-                        }
-                        i=walls.length;
-                    }
-                }
+                wallCondition(x,y);
             }
             else if(peta[x][y].getType().compareToIgnoreCase("item")==1)
             {
+                int typeKind=0;
                 for(int i=0;i<items.length;i++)
                 {
                     if((items[i].getPosition().x==x)&&(items[i].getPosition().y==y))
@@ -128,23 +114,88 @@ public class Engine {
             }
             else if(peta[x][y].getType().compareToIgnoreCase("obstacle")==1)
             {
-                for(int i=0;i<obstacles.length;i++)
+                int typeKind=0;
+                if(peta[x][y].getTypeKind().compareToIgnoreCase("brownDoor")==1)
                 {
-                    if((obstacles[i].getPosition().x==x)&&(obstacles[i].getPosition().y==y))
+                    typeKind=0;
+                }
+                else if(peta[x][y].getTypeKind().compareToIgnoreCase("silverDoor")==1)
+                {
+                    typeKind=1;
+                }
+                else if(peta[x][y].getTypeKind().compareToIgnoreCase("greenDoor")==1)
+                {
+                    typeKind=2;
+                }
+                else if(peta[x][y].getTypeKind().compareToIgnoreCase("laser")==1)
+                {
+                    typeKind=3;
+                }
+                else if(peta[x][y].getTypeKind().compareToIgnoreCase("sleepingGuardRadius")==1)
+                {
+                    typeKind=4;
+                }
+                else if(peta[x][y].getTypeKind().compareToIgnoreCase("finishLineDoor")==1)
+                {
+                    typeKind=5;
+                }
+                if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
+                {
+                    player.move(direction);
+                }
+                else
+                {
+                    if(obstacles[typeKind].getResInDeath()==true) {
+                        player.move(direction);
+                        status.playerIsDead();
+                        //do some board things here
+                    }
+                    else if(obstacles[typeKind].getResInDeath()==false)
                     {
-                        if(player.checkInventory(obstacles[i].getAntiObstacle())==true)
-                        {
-                            player.move(direction);
-                        }
-                        else
-                        {
-                            player.move(direction);
-                            status.playerIsDead();
-                            //do some board things here
-                        }
+                         status.timePenalty(4);
                     }
                 }
             }
         }
     }
+    
+    public void wallCondition(int x, int y)
+    {
+        status.timePenalty(4);
+    }
+    
+    public void itemCondition(int x, int y)
+    {
+        int typeKind=0;
+        if(peta[x][y].getTypeKind().compareToIgnoreCase("brownKey")==1)
+        {
+            typeKind=0;
+        }
+        else if(peta[x][y].getTypeKind().compareToIgnoreCase("greenKey")==1)
+        {
+            typeKind=1;
+        }
+        else if(peta[x][y].getTypeKind().compareToIgnoreCase("silverKey")==1)
+        {
+            typeKind=2;
+        }
+        else if(peta[x][y].getTypeKind().compareToIgnoreCase("mirrorSuit")==1)
+        {
+            typeKind=3;
+        }
+        else if(peta[x][y].getTypeKind().compareToIgnoreCase("silentBoots")==1)
+        {
+            typeKind=4;
+        }
+        else if(peta[x][y].getTypeKind().compareToIgnoreCase("diamond")==1)
+        {
+            typeKind=5;
+        }
+        if(items[typeKind].isTaken()==false)
+        {
+            items[typeKind].take();
+            
+        }
+    }
+        
 }

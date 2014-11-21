@@ -16,7 +16,6 @@ import java.awt.Point;
 public abstract class Obstacle {
     protected String antiObstacle;
     protected boolean resInDeath;
-    protected Point position;
     
     public String getAntiObstacle()
     {
@@ -26,10 +25,5 @@ public abstract class Obstacle {
     public boolean getResInDeath()
     {
         return resInDeath;
-    }
-    
-    public Point getPosition()
-    {
-        return position;
     }
 }

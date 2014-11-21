@@ -13,5 +13,10 @@ import Chip.Component.*;
  * @author Caustri Kennel
  */
 public class Laser extends Obstacle{
-    
+     
+    public Laser()
+    {
+        antiObstacle="mirrorArmor";
+        resInDeath=true;
+    }
 }

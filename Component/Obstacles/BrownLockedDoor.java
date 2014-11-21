@@ -4,12 +4,17 @@
  * and open the template in the editor.
  */
 
-package Chip.Gui;
+package Chip.Component.Obstacles;
 
 /**
  *
  * @author Seto
  */
-public class BoardTextVersion {
+public class BrownLockedDoor extends Obstacle {
     
+    public BrownLockedDoor()
+    {
+        antiObstacle="brownKey";
+        resInDeath=false;
+    }
 }

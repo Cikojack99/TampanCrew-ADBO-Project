@@ -10,6 +10,11 @@ package Chip.Component.Obstacles;
  *
  * @author Seto
  */
-public class FinishLineDoor {
-    
+public class SilverLockedDoor extends Obstacle {
+     
+    public SilverLockedDoor()
+    {
+        antiObstacle="silverKey";
+        resInDeath=false;
+    }
 }

@@ -4,12 +4,21 @@
  * and open the template in the editor.
  */
 
-package Chip.Component.Obstacles;
+package Chip.Component.Items;
+
+import java.awt.Point;
 
 /**
  *
  * @author Seto
  */
-public class KeyCodeTerminal {
+public class Diamond extends Item{
+
+    private int counterDiamond;
     
+    public Diamond() {
+        super();
+        type="diamond";
+        counterDiamond=5;
+    }
 }
