@@ -13,7 +13,7 @@ import java.awt.Point;
 /**
  *
  * @author TampanCrew Arts
- * @version 0.02 ALPHA
+ * @version VS.BETA
  */
 public abstract class Level {
 
@@ -45,7 +45,7 @@ public abstract class Level {
     /**
      * Seluruh array dari Walls yang ada di level.
      */
-    //protected Wall walls[];
+    protected Wall walls[];
             
     /**
      * Constructor ini berfungsi untuk menginisialisasi batasan waktu dan posisi 
@@ -53,7 +53,7 @@ public abstract class Level {
      * @param time Batasan waktu sebuah level.
      * @param playerStartingPosition Posisi awal player pada sebuah level.
      */
-    public Level()
+    public Level(int time, Point playerStartingPosition)
     {
         this.time=time;
         this.playerStartingPosition=playerStartingPosition;
