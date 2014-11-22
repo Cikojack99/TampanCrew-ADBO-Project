@@ -169,11 +169,6 @@ public class LevelZero extends Level {
         petaLevel[0][20]=wall;
     }
     
-    public Maps[][] getMap()
-    {
-        return petaLevel;
-    }
-    
     public int getHeight()
     {
         return 22;
@@ -182,10 +177,5 @@ public class LevelZero extends Level {
     public int getWidth()
     {
         return 30;
-    }
-    
-    public Maps getContent(int i, int j)
-    {
-        return petaLevel[i][j];
     }
 }
