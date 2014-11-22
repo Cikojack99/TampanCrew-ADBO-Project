@@ -23,11 +23,7 @@ public class LevelZero extends Level {
         obstacles= new Obstacle[6];
     }
 
-<<<<<<< HEAD
 @Override
-=======
-    @Override
->>>>>>> c761b1250c4bd8cc505ce929345ba318bcd8860a
     public void initializeWalls() {
         Maps wall = new Maps("Wall");
         
@@ -177,21 +173,10 @@ public class LevelZero extends Level {
         petaLevel[0][20]=wall;
     }
 
-<<<<<<< HEAD
     @Override
     public int getHeight()
     {
         return 22;
-=======
-public Maps[][] getMap()
-    {
-        return petaLevel;
-    }
-
-public Maps getContent(int i, int j)
-    {
-        return petaLevel[i][j];
->>>>>>> c761b1250c4bd8cc505ce929345ba318bcd8860a
     }
     
     @Override
