@@ -37,7 +37,7 @@ public class Drawer extends JPanel{
         Maps[][] map = stage.getMaps();
         for (int i = 0; i < stage.getWidth(); i++) {
             for (int j = 0; j < stage.getHeight(); j++) {
-                if(map[i][j]!=null && map[i][j].getType().equalsIgnoreCase("Wall"))
+                if(map[i][j]!=null && map[i][j].getType().contentEquals("Wall"))
                 {
                     g.drawLine(i*20, j*20, i*20, j*20);
                 }
