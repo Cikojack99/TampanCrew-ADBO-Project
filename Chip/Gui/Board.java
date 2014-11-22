@@ -20,6 +20,7 @@ public class Board extends javax.swing.JFrame {
         initComponents();
         this.gameField.setVisible(false);
         this.statField.setVisible(false);
+        this.restartField.setVisible(false);
         this.homePage.setVisible(true);
     }
 
