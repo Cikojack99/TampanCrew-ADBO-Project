@@ -18,15 +18,93 @@ import java.awt.Point;
 public class LevelZero extends Level {
 
     public LevelZero() {
-        Point PSP=new Point();
-        PSP.setLocation(5, 7);
-        super(60, PSP);
+        playerStartingPosition.setLocation(5, 7);
         petaLevel=new Maps[30][22];
         obstacles= new Obstacle[6];
     }
 
-    @Override
-    public void initializeWalls() {     
+@Override
+    public void initializeWalls() {
+        Maps wall = new Maps("Wall");
+        
+        for (int i = 5; i <= 18; i++) {
+            petaLevel[4][i]=wall;
+        }
+        for (int i = 5; i <= 12; i++) {
+            petaLevel[i][5]=wall;
+        }
+        for (int i = 12; i <= 17; i++) {
+            petaLevel[i][2]=wall;
+        }
+        for (int i = 17; i <= 21; i++) {
+            petaLevel[i][1]=wall;
+        }
+        for (int i = 21; i <= 23; i++) {
+            petaLevel[i][2]=wall;
+        }
+        for (int i = 23; i <= 27; i++) {
+            petaLevel[i][0]=wall;
+        }
+        for (int i = 1; i <= 5; i++) {
+            petaLevel[27][i]=wall;
+        }
+        for (int i = 5; i <= 9; i++) {
+            petaLevel[29][i]=wall;
+        }
+        for (int i = 15; i <= 25; i++) {
+            petaLevel[i][4]=wall;
+            petaLevel[i][5]=wall;
+        }
+        for (int i = 16; i <= 19; i++) {
+            petaLevel[i][9]=wall;
+        }
+        for (int i = 6; i <= 9; i++) {
+            petaLevel[22][i]=wall;
+        }
+        for (int i = 6; i <= 12; i++) {
+            petaLevel[11][i]=wall;
+        }
+        for (int i = 8; i <= 12; i++) {
+            petaLevel[i][13]=wall;
+        }
+        for (int i = 15; i <= 29; i++) {
+            petaLevel[i][13]=wall;
+        }
+        for (int i = 9; i <= 22; i++) {
+            petaLevel[i][18]=wall;
+        }
+        for (int i = 5; i <= 24; i++) {
+            petaLevel[i][21]=wall;
+        }
+        for (int i = 14; i <= 20; i++) {
+            petaLevel[24][i]=wall;
+        }
+        petaLevel[23][1]=wall;
+        petaLevel[25][2]=wall;
+        petaLevel[19][3]=wall;
+        petaLevel[12][3]=wall;
+        petaLevel[12][4]=wall;
+        petaLevel[28][5]=wall;
+        petaLevel[23][6]=wall;
+        petaLevel[9][6]=wall;
+        petaLevel[9][7]=wall;
+        petaLevel[23][8]=wall;
+        petaLevel[9][11]=wall;
+        petaLevel[9][12]=wall;
+        petaLevel[29][12]=wall;
+        petaLevel[5][13]=wall;
+        petaLevel[19][14]=wall;
+        petaLevel[19][15]=wall;
+        petaLevel[19][16]=wall;
+        petaLevel[22][15]=wall;
+        petaLevel[22][16]=wall;
+        petaLevel[22][17]=wall;
+        petaLevel[5][18]=wall;
+        petaLevel[4][21]=wall;
+        Maps invisWall = new Maps("invisible wall");
+        petaLevel[4][19]=invisWall;
+        petaLevel[4][20]=invisWall;
+        petaLevel[22][7]=invisWall;
     }
 
     @Override
@@ -69,11 +147,6 @@ public class LevelZero extends Level {
 
     @Override
     public void initializeItems() {
-        items[0]=new BrownKey();
-        items[1]=new GreenKey();
-        items[2]=new SilverKey();
-        items[3]=new MirrorSuit();
-        items[4]=new SilentBoots();
         Maps diamond=new Maps("item","diamond");
         petaLevel[10][6]=new Maps("item","silverKey");
         petaLevel[10][9]=diamond;
@@ -89,7 +162,27 @@ public class LevelZero extends Level {
 
     @Override
     public void drawSecret() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Maps wall = new Maps("Wall");
+        for (int i = 0; i <= 3; i++) {
+            petaLevel[i][18]=wall;
+        }
+        for (int i = 0; i <= 3; i++) {
+            petaLevel[i][21]=wall;
+        }
+        petaLevel[0][19]=wall;
+        petaLevel[0][20]=wall;
+    }
+
+    @Override
+    public int getHeight()
+    {
+        return 22;
     }
     
+    @Override
+    public int getWidth()
+    {
+        return 30;
+    }
+
 }

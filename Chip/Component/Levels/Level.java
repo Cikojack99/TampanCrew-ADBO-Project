@@ -43,11 +43,6 @@ public abstract class Level {
     protected Obstacle obstacles[];
     
     /**
-     * Seluruh array dari Walls yang ada di level.
-     */
-    //protected Wall walls[];
-            
-    /**
      * Constructor ini berfungsi untuk menginisialisasi batasan waktu dan posisi 
      * player dalam sebuah level.
      * @param time Batasan waktu sebuah level.
@@ -58,21 +53,19 @@ public abstract class Level {
         this.time=time;
         this.playerStartingPosition=playerStartingPosition;
     }
-
-    /**
-     * 
-     */
+    
+    public void initializeLevel()
+    {
+        initializeWalls();
+        initializeObstacles();
+        initializeItems();
+    }
+    
     public abstract void initializeWalls();
     
     public abstract void initializeObstacles();
     
     public abstract void initializeItems();
-    
-    /**
-     * Method abstract ini berfungsi untuk menginisialisasi semua hal yang ada
-     * di sebuah level yang akan diisi oleh inheritance dari class level ini.
-     */
-    public abstract void initializeMaps();
     
     /**
      * Method ini berfungsi untuk memanggil attribute time yang akan digunakan 
@@ -103,27 +96,7 @@ public abstract class Level {
     {
         return obstacles;
     }
-    
-    /**
-     * Method ini berfungsi untuk memanggil attribute time yang akan digunakan 
-     * oleh class Board dan Engine.
-     * @return Array Walls.
-     */
-    public Wall[] getWalls()
-    {
-        return walls;
-    }
-    
-    /**
-     * Method ini berfungsi untuk memanggil attribute time yang akan digunakan 
-     * oleh class Board dan Engine.
-     * @return Array Items.
-     */
-    public Item[] getItems()
-    {
-        return items;
-    }
-    
+
     /**
      * Method ini berfungsi untuk memanggil petaLevel yang akan digunakan 
      * oleh class Board dan Engine.
@@ -134,5 +107,31 @@ public abstract class Level {
         return petaLevel;
     }
     
+    /**
+     * menggambar peta bagian rahasia yang muncul bila Wall tertentu ditembus
+     */
     public abstract void drawSecret();
+    
+    /**
+     * mendapatkan tinggi dari map level
+     * @return tinggi map level
+     */
+    public abstract int getHeight();
+    
+    /**
+     * mendapatkan lebar dari map level
+     * @return lebar dari level
+     */
+    public abstract int getWidth();
+    
+    /**
+     * mendapatkan isi dari koordinat peta[i][j]
+     * @param i koordinat x dari peta
+     * @param j koordinat y dari peta
+     * @return isi peta[i][j]
+     */
+    public Maps getContent(int i, int j)
+    {
+        return petaLevel[i][j];
+    }
 }

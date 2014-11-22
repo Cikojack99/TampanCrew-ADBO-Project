@@ -38,10 +38,6 @@ public class Engine {
      * Attribute array of obstacles. 
      */
     private Obstacle[] obstacles; 
-    /**
-     * Attribute array of items.
-     */
-    private Item[] items;
     
     private Maps peta[][];
     
@@ -54,10 +50,8 @@ public class Engine {
     {
         this.board=board;
         player=new Player(level.getStartingPosition());
-        status=new Status(false,false,level.getTime());
-        walls=level.getWalls();
+        status=new Status(level.getTime());
         obstacles=level.getObstacles();
-        items=level.getItems();
         this.peta = level.getMaps();
     }
     
@@ -66,7 +60,7 @@ public class Engine {
      * @param direction null
      * @return null
      */
-    public void runCondition(int direction)
+    public void runMovingCondition(int direction)
     {   
         int x=0;
         int y=0;
@@ -98,23 +92,30 @@ public class Engine {
             }
             else if(peta[x][y].getType().compareToIgnoreCase("item")==1)
             {
-                int typeKind=0;
-                for(int i=0;i<items.length;i++)
-                {
-                    if((items[i].getPosition().x==x)&&(items[i].getPosition().y==y))
-                    {
-                        if(items[i].isTaken()==false)
-                        {
-                            items[i].effect();
-                            player.takeItem(items[i].getType());
-                        }
-                        i=walls.length;
-                    }
-                }
+                itemCondition(x,y);
             }
             else if(peta[x][y].getType().compareToIgnoreCase("obstacle")==1)
             {
-                int typeKind=0;
+                obstaclesCondition(x,y);
+            }
+        }
+    }
+    
+    public void wallCondition(int x, int y)
+    {
+        status.timePenalty(4);
+    }
+    
+    public void itemCondition(int x, int y)
+    {
+        player.move(x,y);
+        player.takeItem(peta[x][y].getTypeKind());
+        peta[x][y]=null;
+    }
+    
+    public void obstaclesCondition(int x,int y)
+    {
+         int typeKind=0;
                 if(peta[x][y].getTypeKind().compareToIgnoreCase("brownDoor")==1)
                 {
                     typeKind=0;
@@ -141,61 +142,20 @@ public class Engine {
                 }
                 if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
                 {
-                    player.move(direction);
+                    player.move(x,y);
                 }
                 else
                 {
                     if(obstacles[typeKind].getResInDeath()==true) {
-                        player.move(direction);
+                        player.move(x,y);
                         status.playerIsDead();
                         //do some board things here
                     }
                     else if(obstacles[typeKind].getResInDeath()==false)
                     {
-                         status.timePenalty(4);
+                        status.timePenalty(4);
                     }
                 }
-            }
-        }
-    }
-    
-    public void wallCondition(int x, int y)
-    {
-        status.timePenalty(4);
-    }
-    
-    public void itemCondition(int x, int y)
-    {
-        int typeKind=0;
-        if(peta[x][y].getTypeKind().compareToIgnoreCase("brownKey")==1)
-        {
-            typeKind=0;
-        }
-        else if(peta[x][y].getTypeKind().compareToIgnoreCase("greenKey")==1)
-        {
-            typeKind=1;
-        }
-        else if(peta[x][y].getTypeKind().compareToIgnoreCase("silverKey")==1)
-        {
-            typeKind=2;
-        }
-        else if(peta[x][y].getTypeKind().compareToIgnoreCase("mirrorSuit")==1)
-        {
-            typeKind=3;
-        }
-        else if(peta[x][y].getTypeKind().compareToIgnoreCase("silentBoots")==1)
-        {
-            typeKind=4;
-        }
-        else if(peta[x][y].getTypeKind().compareToIgnoreCase("diamond")==1)
-        {
-            typeKind=5;
-        }
-        if(items[typeKind].isTaken()==false)
-        {
-            items[typeKind].take();
-            
-        }
     }
         
 }
