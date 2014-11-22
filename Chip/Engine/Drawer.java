@@ -7,10 +7,9 @@
 package Chip.Engine;
 
 import Chip.Component.Levels.Level;
-import Chip.Component.Levels.LevelZero;
 import Chip.Component.Maps;
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
@@ -22,54 +21,179 @@ import javax.swing.JPanel;
  * @author Caustri Kennel
  */
 public class Drawer extends JPanel{
-    Level stage;
     JPanel panel;
-
+    Graphics2D gd;
+    URL imgUrl;
+    Image itemInMap;
+    Image character;
+    Maps[][] map;
+    AffineTransform at;
+    
     public Drawer(Level stage, JPanel panel) {
-        this.stage = stage;
+        Level level = stage;
         this.panel = panel;
+        level.initializeLevel();
+        map = level.getMaps();
+        at = new AffineTransform();
+        
+        for (int i = 0; i < 601; i+=100) {
+            for (int j = 0; j < 440; j+=100) {
+                if(map[i][j]==null)
+                {
+                    drawDeletedItem(i, j);
+                    i=Integer.MAX_VALUE;
+                    j=i;
+                }
+            }
+        }
     }
     
     @Override
+    /**
+     * menggambar background
+     */
     public void paintComponent(Graphics g)
     {
-        Graphics2D gd = (Graphics2D)g;
-        Stroke s = new BasicStroke(20);
-        gd.setStroke(s);
-        Line2D line;
-        gd.setColor(Color.GRAY);
-        stage.initializeLevel();
-        Maps[][] map = stage.getMaps();
-        URL imgUrl = getClass().getClassLoader().getResource("tegel.jpg");
-        Image img = null;
+        gd = (Graphics2D)g;
+        imgUrl = getClass().getClassLoader().getResource("tegel.jpg");
+        itemInMap = null;
         try {
-            img = ImageIO.read(imgUrl);
+            itemInMap = ImageIO.read(imgUrl);
         } catch (IOException ex) {
             Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         for (int i = 0; i < 601; i+=100) {
             for (int j = 0; j < 440; j+=100) {
-                g.drawImage(img, i, j, 100, 100, null);
+                gd.drawImage(itemInMap, i, j, 100, 100, null);
             }
         }
         
-        
-        imgUrl = getClass().getClassLoader().getResource("chip.jpg");
-        img = null;
+        imgUrl = getClass().getClassLoader().getResource("char kanan.jpg");
+        character = null;
         try {
-            img = ImageIO.read(imgUrl);
+            character = ImageIO.read(imgUrl);
         } catch (IOException ex) {
             Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+    }
+
+    /**
+     * menggambar isi dari level ini
+     * @param picName nama file gambar yang akan digunakan
+     * @param type jenis tipe apa yang akan digambar
+     */
+    private void drawLevel(String picName, String type) {
+        imgUrl = getClass().getClassLoader().getResource(picName);
+        itemInMap = null;
+        try {
+            itemInMap = ImageIO.read(imgUrl);
+        } catch (IOException ex) {
+            Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }        
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 22; j++) {
-                if(map[i][j]!=null && map[i][j].getType().equalsIgnoreCase("Wall"))
+                if(map[i][j]!=null && map[i][j].getType().contains(type))
                 {
-                    g.drawImage(img, i*20, j*20, 20, 20, null);
+                    gd.drawImage(itemInMap, i*20, j*20, 20, 20, null);
                 }
-                
-                if(i==21 && j==29) {i=Integer.MAX_VALUE;}
+            }
+        }    
+    }
+
+    /**
+     * method yang dipanggil untuk menggambar level bila ada item yang menghilang
+     * method ini akan memanggil method drawLevel()
+     * @param i koordinat x yang akan dihapus 
+     * @param j koordinat y yang akan dihapus
+     */
+    public void drawDeletedItem(int i, int j) {
+        map[i][j]=null;
+        drawLevel("brick.jpg", "Wall");
+        drawLevel("diamond.png", "diamond");
+        drawLevel(".png", "silverDoor");
+        drawLevel(".png", "greenDoor");
+        drawLevel(".png", "brownDoor");
+        drawLevel(".png", "FinishLineDoor");
+        drawLevel(".png", "guardian");
+        drawLevel(".png", "silverKey");
+        drawLevel(".png", "greenKey");
+        drawLevel(".png", "brownKey");
+        drawLevel(".png", "mirrorArmor");
+        drawLevel(".png", "silentBoots");
+        drawLaser();
+    }
+    
+    public void rotateChar(int direction)
+    {
+        String pic = "char "+direction+".jpg";
+        imgUrl = getClass().getClassLoader().getResource(pic);
+        try {
+            character = ImageIO.read(imgUrl);
+        } catch (IOException ex) {
+            Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+
+    private void drawLaser() {
+        imgUrl = getClass().getClassLoader().getResource("laser.jpg");
+        itemInMap = null;
+        try {
+            itemInMap = ImageIO.read(imgUrl);
+        } catch (IOException ex) {
+            Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }        
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 22; j++) {
+                if(map[i][j]!=null && map[i][j].getType().contains("laser"))
+                {
+                    int size=0;
+                    if(map[i][j+1]!=null && map[i][j+1].getType().contains("laser"))
+                    {
+                        for (int k = j+1; k < 22; k++) {
+                            if(map[i][k]!=null && map[i][k].getType().contains("laser"))
+                            {
+                                size++;
+                            } else {
+                                j=k;
+                                break;
+                            }
+                        }
+                        gd.drawImage(itemInMap, i*20, j*20, 20, size*20, null);
+                    }
+                    else if (map[i][j+1]!=null && !map[i][j+1].getType().contains("laser") && map[i+1][j]!=null && !map[i+1][j].getType().contains("laser"))
+                    {
+                        gd.drawImage(itemInMap, i*20, j*20, 20, 20, null);
+                    }
+                }
+            }
+        }
+        
+        imgUrl = getClass().getClassLoader().getResource("laserDatar.jpg");
+        itemInMap = null;
+        try {
+            itemInMap = ImageIO.read(imgUrl);
+        } catch (IOException ex) {
+            Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 22; j++) {
+                if(map[i][j]!=null && map[i][j].getType().contains("laser"))
+                {
+                    int size=0;
+                    if(map[i+1][j]!=null && map[i+1][j].getType().contains("laser"))
+                    {
+                        for (int k = i+1; k < 22; k++) {
+                            if(map[k][j]!=null && map[k][j].getType().contains("laser"))
+                            {
+                                size++;
+                            } else {
+                                i=k;
+                                break;
+                            }
+                        }
+                        gd.drawImage(itemInMap, i*20, j*20, size*20, 20, null);
+                    }
+                }
             }
         }
     }
