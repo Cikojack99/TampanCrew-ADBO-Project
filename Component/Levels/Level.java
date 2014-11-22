@@ -107,5 +107,31 @@ public abstract class Level {
         return petaLevel;
     }
     
+    /**
+     * menggambar peta bagian rahasia yang muncul bila Wall tertentu ditembus
+     */
     public abstract void drawSecret();
+    
+    /**
+     * mendapatkan tinggi dari map level
+     * @return tinggi map level
+     */
+    public abstract int getHeight();
+    
+    /**
+     * mendapatkan lebar dari map level
+     * @return lebar dari level
+     */
+    public abstract int getWidth();
+    
+    /**
+     * mendapatkan isi dari koordinat peta[i][j]
+     * @param i koordinat x dari peta
+     * @param j koordinat y dari peta
+     * @return isi peta[i][j]
+     */
+    public Maps getContent(int i, int j)
+    {
+        return petaLevel[i][j];
+    }
 }
