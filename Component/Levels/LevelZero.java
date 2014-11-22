@@ -7,27 +7,20 @@
 package Chip.Component.Levels;
 
 import Chip.Component.*;
-import Chip.Component.Items.*;
-import Chip.Component.Obstacles.*;
 import java.awt.Point;
 
 /**
  *
- * @author Seto
+ * @author VS.BETA
  */
 public class LevelZero extends Level {
 
-    public LevelZero() {
-        playerStartingPosition.setLocation(5, 7);
+    public LevelZero(int time, Point playerStartingPosition) {
+        super(time, playerStartingPosition);
         petaLevel=new Maps[30][22];
-        obstacles= new Obstacle[6];
     }
 
-<<<<<<< HEAD
-@Override
-=======
     @Override
->>>>>>> c761b1250c4bd8cc505ce929345ba318bcd8860a
     public void initializeWalls() {
         Maps wall = new Maps("Wall");
         
@@ -147,7 +140,6 @@ public class LevelZero extends Level {
         petaLevel[25][3]=laser;
         petaLevel[29][11]=new Maps("obstacle","FinishLineDoor");
     }
-        
 
     @Override
     public void initializeItems() {
@@ -176,28 +168,14 @@ public class LevelZero extends Level {
         petaLevel[0][19]=wall;
         petaLevel[0][20]=wall;
     }
-
-<<<<<<< HEAD
-    @Override
+    
     public int getHeight()
     {
         return 22;
-=======
-public Maps[][] getMap()
-    {
-        return petaLevel;
-    }
-
-public Maps getContent(int i, int j)
-    {
-        return petaLevel[i][j];
->>>>>>> c761b1250c4bd8cc505ce929345ba318bcd8860a
     }
     
-    @Override
     public int getWidth()
     {
         return 30;
     }
-
 }
