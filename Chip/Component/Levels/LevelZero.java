@@ -101,7 +101,7 @@ public class LevelZero extends Level {
         petaLevel[22][17]=wall;
         petaLevel[5][18]=wall;
         petaLevel[4][21]=wall;
-        Maps invisWall = new Maps("invisible wall");
+        Maps invisWall = new Maps("invisible Wall");
         petaLevel[4][19]=invisWall;
         petaLevel[4][20]=invisWall;
         petaLevel[22][7]=invisWall;
