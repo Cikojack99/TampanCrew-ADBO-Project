@@ -127,48 +127,74 @@ public class Drawer extends JPanel{
         drawLaser();
     }
     
+    /**
+     * menggambar ulang level dengan character yang sudah berubah arah
+     * @param direction 
+     */
     public void rotateChar(String direction)
     {
-        String pic = "char "+direction+".jpg";
+        String pic = "char "+direction+".png";
         imgUrl = getClass().getClassLoader().getResource(pic);
         try {
             character = ImageIO.read(imgUrl);
         } catch (IOException ex) {
             Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        drawDeletedItem(0, 0);
+        gd.drawImage(character, (int)player.getCurPosition().getX(), (int)player.getCurPosition().getY(), 20, 20, null);
     }
     
-    public void hover(int xAksen, int yAksen)
+    public void hover(String direction, int xAksen, int yAksen)
     {
         int x = (int)player.getCurPosition().getX();
         int y = (int)player.getCurPosition().getY();
-        if(x==xAksen)
+        String pic = "hover "+direction+".png";
+        imgUrl = getClass().getClassLoader().getResource(pic);
+        try {
+            character = ImageIO.read(imgUrl);
+        } catch (IOException ex) {
+            Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        Thread thread = new Thread();
+        thread.start();
+        if(direction.equalsIgnoreCase("left"))
         {
-            if(y>yAksen)
-            {
-                for (int i = y; i >= yAksen; i--) {
+            for (int i = x; i >= xAksen; i--) {
+                try {
+                    thread.sleep(100);
                     drawDeletedItem(0, 0);
                     gd.drawImage(character, x, y, 20, 20, null);
-                }
-            } else {
-                for (int i = y; i <= yAksen; i++) {
-                    drawDeletedItem(0, 0);
-                    gd.drawImage(character, x, y, 20, 20, null);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
             }
-        } else {
-            if(x>xAksen)
-            {
-                for (int i = x; i >= xAksen; i--) {
+        } else if(direction.equalsIgnoreCase("right"))
+        {
+            try {
+                    thread.sleep(100);
                     drawDeletedItem(0, 0);
                     gd.drawImage(character, x, y, 20, 20, null);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
-            } else {
-                for (int i = x; i <= xAksen; i++) {
+        } else if(direction.equalsIgnoreCase("up"))
+        {
+            try {
+                    thread.sleep(100);
                     drawDeletedItem(0, 0);
                     gd.drawImage(character, x, y, 20, 20, null);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
-            }
+        } else if(direction.equalsIgnoreCase("down"))
+        {
+            try {
+                    thread.sleep(100);
+                    drawDeletedItem(0, 0);
+                    gd.drawImage(character, x, y, 20, 20, null);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                }
         }
     }
 
