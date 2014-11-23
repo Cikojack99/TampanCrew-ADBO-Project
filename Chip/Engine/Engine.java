@@ -4,13 +4,12 @@
 
 package Chip.Engine;
 
-import Chip.Component.Status;
 import Chip.Component.*;
 import Chip.Component.Levels.Level;
 import Chip.Component.Obstacles.*;
+import Chip.Component.Status;
 import Chip.Gui.Board;
-import java.awt.Point;
-import javax.swing.Timer;
+import javax.swing.JPanel;
 
 /**
  *
@@ -40,18 +39,21 @@ public class Engine {
     
     private Maps peta[][];
     
+    private Drawer drawer;
+    
     /**
      * Constructor ini berfungsi untuk menginisialisasi semua attribute dalam
      * sebuah engine yang diambil dari class level.
      * @param level Level yang sekarang akan dijalankan engine.
      */
-    public Engine(Level level, Board board)
+    public Engine(Level level, Board board, JPanel gameField)
     {
         this.board=board;
         player=new Player(level.getStartingPosition());
         status=new Status(level.getTime(),this);
         obstacles=level.getObstacles();
         this.peta = level.getMaps();
+        drawer = new Drawer(level, gameField, player);
     }
     
     public void playerIsDead()
@@ -75,21 +77,25 @@ public class Engine {
         int y=0;
         if(direction==0)
         {
+            drawer.rotateChar("up");
             x=(int)(player.getCurPosition().getX()+1);
             y=(int)(player.getCurPosition().getY());
         }
         else if(direction==1)
         {
+            drawer.rotateChar("left");
             x=(int)(player.getCurPosition().getX()-1);
             y=(int)(player.getCurPosition().getY());
         }
         else if(direction==2)
         {
+            drawer.rotateChar("down");
             x=(int)(player.getCurPosition().getX());
             y=(int)(player.getCurPosition().getY()-1);
         }
         else if(direction==3)
         {
+            drawer.rotateChar("right");
             x=(int)(player.getCurPosition().getX());
             y=(int)(player.getCurPosition().getY()+1);
         }

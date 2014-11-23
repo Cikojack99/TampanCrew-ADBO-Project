@@ -27,9 +27,7 @@ public class Maps {
      * biasanya untuk merepresentasikan suatu objek tanpa turunan.
      * @param type type adalah tipe dari objek di suatu kordinat map. More Information at type attribute javadocs.
      */
-    public Maps(String type){
-        this.type=type;
-    }
+    
     
     /**
      * Constructor kedua ini untuk menginisialisasi sebuah Maps yang mempunyai type dan typeKind, biasanya 
@@ -39,8 +37,8 @@ public class Maps {
      */
     public Maps(String type,String TypeKind)
     {
-        this(type);
-        this.typeKind=typeKind;
+        this.type=type;
+        this.typeKind = TypeKind;
     }
     
     /**

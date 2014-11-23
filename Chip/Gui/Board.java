@@ -127,16 +127,12 @@ public class Board extends javax.swing.JFrame {
                 .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout gameFieldLayout = new javax.swing.GroupLayout(gameField);
-        gameField.setLayout(gameFieldLayout);
-        gameFieldLayout.setHorizontalGroup(
-            gameFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-        gameFieldLayout.setVerticalGroup(
-            gameFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
-        );
+        gameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                gameFieldKeyPressed(evt);
+            }
+        });
+        gameField.setLayout(new java.awt.CardLayout());
 
         homePage.setToolTipText("");
 
@@ -249,12 +245,31 @@ public class Board extends javax.swing.JFrame {
         this.gameField.setVisible(true);
         this.statField.setVisible(true);
         this.homePage.setVisible(false);
-        gameEngine=new Engine(levels[levelPassed],this);
+        gameEngine=new Engine(levels[levelPassed],this, this.gameField);
     }//GEN-LAST:event_startButtonMouseClicked
 
     private void restartButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseClicked
-        gameEngine=new Engine(levels[levelPassed],this);
+        gameEngine=new Engine(levels[levelPassed],this, this.gameField);
+        this.gameField.setVisible(true);
+        this.restartField.setVisible(false);
     }//GEN-LAST:event_restartButtonMouseClicked
+
+    private void gameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gameFieldKeyPressed
+        int arrowKey = evt.getKeyCode();
+        int direction;
+        if (arrowKey == KeyEvent.VK_LEFT) {
+            gameEngine.runMovingCondition(1);
+        }
+        else if (arrowKey == KeyEvent.VK_UP) {
+            gameEngine.runMovingCondition(0);
+        }
+        else if (arrowKey == KeyEvent.VK_RIGHT) {
+            gameEngine.runMovingCondition(3);
+        }
+        else if (arrowKey == KeyEvent.VK_DOWN) {
+            gameEngine.runMovingCondition(2);
+        }
+    }//GEN-LAST:event_gameFieldKeyPressed
 
     public void gameOver()
     {
@@ -300,29 +315,6 @@ public class Board extends javax.swing.JFrame {
                 new Board().setVisible(true);
             }
         });
-    }
-    
-    
-    /**
-     * Method untuk menggerakkan chip
-     *
-     * @param moveKey
-     */
-    public void keyPressed(KeyEvent moveKey) {
-        int arrowKey = moveKey.getKeyCode();
-        int direction;
-        if (arrowKey == KeyEvent.VK_LEFT) {
-            gameEngine.runMovingCondition(1);
-        }
-        else if (arrowKey == KeyEvent.VK_UP) {
-            gameEngine.runMovingCondition(0);
-        }
-        else if (arrowKey == KeyEvent.VK_RIGHT) {
-            gameEngine.runMovingCondition(3);
-        }
-        else if (arrowKey == KeyEvent.VK_DOWN) {
-            gameEngine.runMovingCondition(2);
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
