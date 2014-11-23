@@ -17,6 +17,7 @@ import java.awt.Point;
 public class LevelZero extends Level {
 
     public LevelZero() {
+        time=60;
         playerStartingPosition.setLocation(5, 7);
         petaLevel=new Maps[30][22];
         obstacles= new Obstacle[6];

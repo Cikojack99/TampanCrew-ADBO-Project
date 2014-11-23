@@ -7,8 +7,9 @@
 package Chip.Gui;
 
 import Chip.Component.Levels.*;
-import Chip.Engine.Engine;
 import Chip.Component.Status;
+import Chip.Engine.Engine;
+import java.awt.event.KeyEvent;
 import javax.swing.Timer;
 
 /**
@@ -299,6 +300,29 @@ public class Board extends javax.swing.JFrame {
                 new Board().setVisible(true);
             }
         });
+    }
+    
+    
+    /**
+     * Method untuk menggerakkan chip
+     *
+     * @param moveKey
+     */
+    public void keyPressed(KeyEvent moveKey) {
+        int arrowKey = moveKey.getKeyCode();
+        int direction;
+        if (arrowKey == KeyEvent.VK_LEFT) {
+            gameEngine.runMovingCondition(1);
+        }
+        else if (arrowKey == KeyEvent.VK_UP) {
+            gameEngine.runMovingCondition(0);
+        }
+        else if (arrowKey == KeyEvent.VK_RIGHT) {
+            gameEngine.runMovingCondition(3);
+        }
+        else if (arrowKey == KeyEvent.VK_DOWN) {
+            gameEngine.runMovingCondition(2);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

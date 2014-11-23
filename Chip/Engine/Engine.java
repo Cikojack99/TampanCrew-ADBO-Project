@@ -118,6 +118,8 @@ public class Engine {
     public void itemCondition(int x, int y)
     {
         player.move(x,y);
+        //Ini kan si player bergerak, jadi gerakin animasi dan visualnya serta ilangin item yang ada di 
+        //x,y.
         player.takeItem(peta[x][y].getTypeKind());
         peta[x][y]=null;
     }
@@ -151,6 +153,8 @@ public class Engine {
                 }
                 if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
                 {
+                    //ini kan si player bergerak dan karena dia udah punya anti obstacles, untuk saat ini
+                    //ga usah diilangin dulu obstacles nya dehh.
                     player.move(x,y);
                 }
                 else

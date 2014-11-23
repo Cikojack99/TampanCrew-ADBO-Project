@@ -46,8 +46,7 @@ public abstract class Level {
      */
     public Level()
     {
-        this.time=time;
-        this.playerStartingPosition=playerStartingPosition;
+        playerStartingPosition=new Point();
     }
     
     public void initializeLevel()
