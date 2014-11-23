@@ -4,16 +4,12 @@
  * and open the template in the editor.
  */
 
-package Chip.Component.Items;
+package Chip.Component.Obstacles;
 
 /**
  *
  * @author Seto
  */
-public class GreenKey extends Item {
+public class SleepingGuard {
     
-    public GreenKey() {
-        super();
-        type="greenKey";
-    }
 }

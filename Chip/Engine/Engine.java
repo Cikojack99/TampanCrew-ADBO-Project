@@ -4,13 +4,13 @@
 
 package Chip.Engine;
 
-import Chip.Component.Items.Item;
-import Chip.Component.Items.*;
-import Chip.Component.Levels.Level;
+import Chip.Component.Status;
 import Chip.Component.*;
+import Chip.Component.Levels.Level;
 import Chip.Component.Obstacles.*;
 import Chip.Gui.Board;
 import java.awt.Point;
+import javax.swing.Timer;
 
 /**
  *
@@ -31,8 +31,7 @@ public class Engine {
      */
     
     private Board board;
-    
-    
+      
     private Wall[] walls;
     /**
      * Attribute array of obstacles. 
@@ -50,11 +49,21 @@ public class Engine {
     {
         this.board=board;
         player=new Player(level.getStartingPosition());
-        status=new Status(level.getTime());
+        status=new Status(level.getTime(),this);
         obstacles=level.getObstacles();
         this.peta = level.getMaps();
     }
     
+    public void playerIsDead()
+    {
+        board.gameOver();
+    }
+    
+    public void displayTimeLeft(int time)
+    {
+        board.updateTime(time);
+    }
+
     /**
      * (To be writen)
      * @param direction null
@@ -148,8 +157,7 @@ public class Engine {
                 {
                     if(obstacles[typeKind].getResInDeath()==true) {
                         player.move(x,y);
-                        status.playerIsDead();
-                        //do some board things here
+                        playerIsDead();
                     }
                     else if(obstacles[typeKind].getResInDeath()==false)
                     {
@@ -157,5 +165,4 @@ public class Engine {
                     }
                 }
     }
-        
 }

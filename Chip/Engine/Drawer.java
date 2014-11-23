@@ -8,6 +8,7 @@ package Chip.Engine;
 
 import Chip.Component.Levels.Level;
 import Chip.Component.Maps;
+import Chip.Component.Player;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
@@ -28,13 +29,15 @@ public class Drawer extends JPanel{
     Image character;
     Maps[][] map;
     AffineTransform at;
+    Player player;
     
-    public Drawer(Level stage, JPanel panel) {
+    public Drawer(Level stage, JPanel panel, Player player) {
         Level level = stage;
         this.panel = panel;
         level.initializeLevel();
         map = level.getMaps();
         at = new AffineTransform();
+        this.player = player;
         
         for (int i = 0; i < 601; i+=100) {
             for (int j = 0; j < 440; j+=100) {
@@ -46,6 +49,7 @@ public class Drawer extends JPanel{
                 }
             }
         }
+        panel.add(this);
     }
     
     @Override
@@ -123,7 +127,7 @@ public class Drawer extends JPanel{
         drawLaser();
     }
     
-    public void rotateChar(int direction)
+    public void rotateChar(String direction)
     {
         String pic = "char "+direction+".jpg";
         imgUrl = getClass().getClassLoader().getResource(pic);
@@ -131,6 +135,14 @@ public class Drawer extends JPanel{
             character = ImageIO.read(imgUrl);
         } catch (IOException ex) {
             Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void hover(int x, int y)
+    {
+        if(player.getCurPosition().getX()==x)
+        {
+            
         }
     }
 
@@ -158,9 +170,9 @@ public class Drawer extends JPanel{
                                 break;
                             }
                         }
-                        gd.drawImage(itemInMap, i*20, j*20, 20, size*20, null);
+                        gd.drawImage(itemInMap, i*20, (j-(size+1))*20, 20, (size+1)*20, null);
                     }
-                    else if (map[i][j+1]!=null && !map[i][j+1].getType().contains("laser") && map[i+1][j]!=null && !map[i+1][j].getType().contains("laser"))
+                    else if((map[i][j+1]!=null && !map[i][j+1].getType().contains("laser")) && (map[i+1][j]==null))
                     {
                         gd.drawImage(itemInMap, i*20, j*20, 20, 20, null);
                     }
@@ -169,7 +181,6 @@ public class Drawer extends JPanel{
         }
         
         imgUrl = getClass().getClassLoader().getResource("laserDatar.jpg");
-        itemInMap = null;
         try {
             itemInMap = ImageIO.read(imgUrl);
         } catch (IOException ex) {
@@ -191,7 +202,10 @@ public class Drawer extends JPanel{
                                 break;
                             }
                         }
-                        gd.drawImage(itemInMap, i*20, j*20, size*20, 20, null);
+                        gd.drawImage(itemInMap, (i-(size+1))*20, j*20, (size+1)*20, 20, null);
+                    } else if((map[i][j+1]==null) && (map[i+1][j]!=null && !map[i+1][j].getType().contains("laser")))
+                    {
+                        gd.drawImage(itemInMap, i*20, j*20, 20, 20, null);
                     }
                 }
             }

@@ -6,7 +6,6 @@
 package Chip.Component.Levels;
 
 import Chip.Component.*;
-import Chip.Component.Items.*;
 import Chip.Component.Obstacles.*;
 import java.awt.Point;
 
@@ -31,16 +30,13 @@ public abstract class Level {
      * Posisi awal player dalam sebuah level.
      */
     protected Point playerStartingPosition;
-    
-    /**
-     * Seluruh array dari Items yang ada di level.
-     */
-    protected Item items[];
-    
+
     /**
      * Seluruh array dari Obstacles yang ada di level.
      */
     protected Obstacle obstacles[];
+    
+    public static final int levelCount=2;
     
     /**
      * Constructor ini berfungsi untuk menginisialisasi batasan waktu dan posisi 

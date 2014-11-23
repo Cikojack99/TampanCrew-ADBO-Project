@@ -25,6 +25,8 @@ public class Player {
      */
     private LinkedList inventory;
     
+    private int diamondCount;
+    
     /**
      * Constructur ini berfungsi untuk menginisialisasikan startingPosition player dalam sebuah level dan
      * menginisialisasi LinkedList dari attribute inventory.
@@ -34,6 +36,7 @@ public class Player {
     {
         inventory=new LinkedList();
         currentPosition=startingPosition;
+        diamondCount=0;
     }
     
     /**
@@ -66,6 +69,10 @@ public class Player {
     public void takeItem(String itemType)
     {
         inventory.addFirst(itemType);
+        if(itemType.compareToIgnoreCase("diamond")==1)
+        {
+            diamondCount++;
+        }
     }
     
     /**
@@ -97,24 +104,13 @@ public class Player {
      */
     public boolean diamondReqChecker()
     {
-        String checker="";
-        int diamondCounter=0;
-        for(int i=0;i<inventory.size();i++)
+        if(diamondCount<5)
         {
-            checker=(String)inventory.removeFirst();
-            if(checker.compareToIgnoreCase("diamond")==1)
-            {
-                diamondCounter++;
-            }
-            inventory.addLast(checker);
-        }
-        if(diamondCounter==5)
-        {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 }

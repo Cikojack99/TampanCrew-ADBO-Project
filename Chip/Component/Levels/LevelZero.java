@@ -7,7 +7,6 @@
 package Chip.Component.Levels;
 
 import Chip.Component.*;
-import Chip.Component.Items.*;
 import Chip.Component.Obstacles.*;
 import java.awt.Point;
 
