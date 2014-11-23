@@ -168,33 +168,43 @@ public class Drawer extends JPanel{
                     Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
             }
+            rotateChar(direction);
         } else if(direction.equalsIgnoreCase("right"))
         {
-            try {
+            for (int i = x; i <= xAksen; i++) {
+                try {
                     thread.sleep(100);
                     drawDeletedItem(0, 0);
                     gd.drawImage(character, x, y, 20, 20, null);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
+            }
+            rotateChar(direction);
         } else if(direction.equalsIgnoreCase("up"))
         {
-            try {
+            for (int i = y; i >= yAksen; i--) {
+                try {
                     thread.sleep(100);
                     drawDeletedItem(0, 0);
                     gd.drawImage(character, x, y, 20, 20, null);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
+            }
+            rotateChar(direction);
         } else if(direction.equalsIgnoreCase("down"))
         {
-            try {
+            for (int i = y; i <= yAksen; i++) {
+                try {
                     thread.sleep(100);
                     drawDeletedItem(0, 0);
                     gd.drawImage(character, x, y, 20, 20, null);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
+            }
+            rotateChar(direction);
         }
     }
 
