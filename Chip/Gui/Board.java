@@ -8,8 +8,11 @@ package Chip.Gui;
 
 import Chip.Component.Levels.*;
 import Chip.Component.Status;
+import Chip.Engine.Drawer;
 import Chip.Engine.Engine;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -28,20 +31,28 @@ public class Board extends javax.swing.JFrame {
     Timer timer;
     
     Status status;
+    
+    Drawer dr;
 
     /**
      * Creates new form Board
      */
     public Board() {
         initComponents();
-        this.gameField.setVisible(false);
         this.statField.setVisible(false);
         this.restartField.setVisible(false);
+        this.gameFrame.setVisible(false);
         this.homePage.setVisible(true);
         levelPassed=0;
         levels=new Level[Level.levelCount];
         levels[0]=new LevelZero();
         levels[1]=new LevelOne();
+        
+    }
+    
+    public void setGameFrame(Drawer d)
+    {
+        this.gameFrame.getContentPane().add(d);
     }
 
     /**
@@ -60,12 +71,12 @@ public class Board extends javax.swing.JFrame {
         diamondCountLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         inventoryLabel = new javax.swing.JLabel();
-        gameField = new javax.swing.JPanel();
         homePage = new javax.swing.JPanel();
         startButton = new javax.swing.JButton();
         restartField = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         restartButton = new javax.swing.JButton();
+        gameFrame = new javax.swing.JInternalFrame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -107,7 +118,7 @@ public class Board extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(statFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(timeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                            .addComponent(timeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                             .addComponent(diamondCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(statFieldLayout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -131,9 +142,6 @@ public class Board extends javax.swing.JFrame {
                 .addComponent(inventoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(184, Short.MAX_VALUE))
         );
-
-        gameField.setVerifyInputWhenFocusTarget(false);
-        gameField.setLayout(new java.awt.CardLayout());
 
         homePage.setToolTipText("");
 
@@ -194,6 +202,24 @@ public class Board extends javax.swing.JFrame {
                 .addContainerGap(146, Short.MAX_VALUE))
         );
 
+        gameFrame.setVisible(true);
+        gameFrame.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                gameFrameKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout gameFrameLayout = new javax.swing.GroupLayout(gameFrame.getContentPane());
+        gameFrame.getContentPane().setLayout(gameFrameLayout);
+        gameFrameLayout.setHorizontalGroup(
+            gameFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 594, Short.MAX_VALUE)
+        );
+        gameFrameLayout.setVerticalGroup(
+            gameFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 445, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,78 +229,91 @@ public class Board extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(gameField, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(601, 601, 601)
+                    .addGap(610, 610, 610)
                     .addComponent(statField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
+                    .addGap(0, 0, 0)
                     .addComponent(restartField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(190, Short.MAX_VALUE)))
+                    .addGap(190, 190, 190)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(gameFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 200, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 29, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(gameField, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
+                    .addContainerGap()
                     .addComponent(statField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)))
+                    .addGap(25, 25, 25)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)
                     .addComponent(restartField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(gameFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 18, Short.MAX_VALUE)))
         );
+
+        try {
+            gameFrame.setMaximum(true);
+        } catch (java.beans.PropertyVetoException e1) {
+            e1.printStackTrace();
+        }
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void startButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startButtonMouseClicked
-        this.gameField.setVisible(true);
-        this.statField.setVisible(true);
-        this.homePage.setVisible(false);
-        gameEngine=new Engine(levels[levelPassed],this, this.gameField);
-    }//GEN-LAST:event_startButtonMouseClicked
-
     private void restartButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseClicked
-        gameEngine=new Engine(levels[levelPassed],this, this.gameField);
-        this.gameField.setVisible(true);
+        gameEngine=new Engine(levels[levelPassed],this);
         this.restartField.setVisible(false);
+        this.gameFrame.setVisible(true);
     }//GEN-LAST:event_restartButtonMouseClicked
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        int arrowKey = evt.getKeyCode();
-        int direction;
-        if (arrowKey == KeyEvent.VK_LEFT) {
-            gameEngine.runMovingCondition(1);
-        }
-        else if (arrowKey == KeyEvent.VK_UP) {
-            gameEngine.runMovingCondition(0);
-        }
-        else if (arrowKey == KeyEvent.VK_RIGHT) {
-            gameEngine.runMovingCondition(3);
-        }
-        else if (arrowKey == KeyEvent.VK_DOWN) {
-            gameEngine.runMovingCondition(2);
-        }
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int arrowKey = e.getKeyCode();
+                int direction;
+                if (arrowKey == KeyEvent.VK_LEFT) {
+                    gameEngine.runMovingCondition(1);
+                }
+                else if (arrowKey == KeyEvent.VK_UP) {
+                    gameEngine.runMovingCondition(0);
+                }
+                else if (arrowKey == KeyEvent.VK_RIGHT) {
+                    gameEngine.runMovingCondition(3);
+                }
+                else if (arrowKey == KeyEvent.VK_DOWN) {
+                    gameEngine.runMovingCondition(2);
+                }
+                System.out.println("di situ xxx");
+            }});
     }//GEN-LAST:event_formKeyPressed
+
+    private void startButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startButtonMouseClicked
+        this.statField.setVisible(true);
+        this.homePage.setVisible(false);
+        this.gameFrame.setVisible(true);
+        gameEngine=new Engine(levels[levelPassed],this);
+    }//GEN-LAST:event_startButtonMouseClicked
+
+    private void gameFrameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gameFrameKeyPressed
+        
+    }//GEN-LAST:event_gameFrameKeyPressed
 
     public void gameOver()
     {
-        this.gameField.setVisible(false);
+        this.gameFrame.setVisible(false);
         this.restartField.setVisible(true);
     }
     
@@ -320,7 +359,7 @@ public class Board extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel diamondCountLabel;
-    private javax.swing.JPanel gameField;
+    private javax.swing.JInternalFrame gameFrame;
     private javax.swing.JPanel homePage;
     private javax.swing.JLabel inventoryLabel;
     private javax.swing.JLabel jLabel1;

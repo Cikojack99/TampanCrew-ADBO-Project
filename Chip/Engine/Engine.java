@@ -46,14 +46,14 @@ public class Engine {
      * sebuah engine yang diambil dari class level.
      * @param level Level yang sekarang akan dijalankan engine.
      */
-    public Engine(Level level, Board board, JPanel gameField)
+    public Engine(Level level, Board board)
     {
         this.board=board;
         player=new Player(level.getStartingPosition());
         status=new Status(level.getTime(),this);
         obstacles=level.getObstacles();
         this.peta = level.getMaps();
-        drawer = new Drawer(level, gameField, player);
+        drawer = new Drawer(level, board, player);
     }
     
     public void playerIsDead()

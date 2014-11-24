@@ -9,6 +9,7 @@ package Chip.Engine;
 import Chip.Component.Levels.Level;
 import Chip.Component.Maps;
 import Chip.Component.Player;
+import Chip.Gui.Board;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
 /**
@@ -37,20 +39,20 @@ public class Drawer extends JPanel{
     int delY=0;
     String orientation="right";
     
-    public Drawer(Level stage, JPanel panel, Player player) {
-        panel.add(this);
+    public Drawer(Level stage, Board board, Player player) {
         level = stage;
         level.initializeLevel();
         map = level.getMaps();
         at = new AffineTransform();
         this.player = player;
         repaint();
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(this);
-        frame.pack();
-        frame.setSize(750,600);
-        frame.setVisible(true);
+        JFrame f = new JFrame("");
+        f.getContentPane().add(this);
+        f.pack();
+        f.setSize(620,483);
+        f.setVisible(true);
+        board.setGameFrame(this);
+        f.setVisible(false);
     }
     
     @Override
