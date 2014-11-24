@@ -265,9 +265,10 @@ public class Board extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void restartButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseClicked
-        gameEngine=new Engine(levels[levelPassed],this);
+        
         this.restartField.setVisible(false);
         this.gameFrame.setVisible(true);
+        gameEngine.updateEngine(levels[levelPassed]);
         this.gameFrame.setFocusable(true);
     }//GEN-LAST:event_restartButtonMouseClicked
 

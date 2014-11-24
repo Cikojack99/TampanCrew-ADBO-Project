@@ -36,6 +36,8 @@ public class Status implements ActionListener{
      * waktu kedisplay dan memberitahu board bahwa player sudah mati karena habis waktu.
      */
     private Engine engine;
+    
+    private int timeDefault;
 
     /**
      * Constructor ini berfungsi untuk menginisialisasi status boolean dead dan boolean clear menjadi
@@ -45,8 +47,16 @@ public class Status implements ActionListener{
      */
     public Status(int time, Engine engine) {
         this.time = time;
+        this.timeDefault=time;
         this.engine = engine;
         timer=new Timer(1000,this);
+        timer.start();
+    }
+    
+    public void statusReset()
+    {
+        timer.stop();
+        this.time=this.timeDefault;
         timer.start();
     }
 

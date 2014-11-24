@@ -39,6 +39,11 @@ public class Player {
         diamondCount=0;
     }
     
+    public void setPosition(Point startingPosition)
+    {
+        currentPosition=startingPosition;
+    }
+    
     /**
      * Memindahkan kordinat player berdasarkan arah
      * yang user arahkan yang sudah di handle di engine.

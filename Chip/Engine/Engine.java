@@ -57,6 +57,15 @@ public class Engine {
         obstacles=level.getObstacles();
         this.peta = level.getMaps();
     }
+     
+    public void updateEngine(Level level)
+    {
+        player.setPosition(level.getStartingPosition());
+//        drawer = new Drawer(level, board, player);
+        status.statusReset();;
+        obstacles=level.getObstacles();
+        this.peta = level.getMaps();
+    }
     
     /**
      * Memberitahu board bahwa player sudah mati, agar board bisa menampilkan kolom gameOver.
