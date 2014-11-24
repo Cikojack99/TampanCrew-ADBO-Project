@@ -10,8 +10,11 @@ import Chip.Component.Levels.*;
 import Chip.Component.Status;
 import Chip.Engine.Drawer;
 import Chip.Engine.Engine;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -20,7 +23,7 @@ import javax.swing.Timer;
  * @author TampanCrew Arts
  * @version 0.01 ALPHA
  */
-public class Board extends javax.swing.JFrame {
+public class Board extends javax.swing.JFrame{
     
     Engine gameEngine;
     
@@ -47,7 +50,6 @@ public class Board extends javax.swing.JFrame {
         levels=new Level[Level.levelCount];
         levels[0]=new LevelZero();
         levels[1]=new LevelOne();
-        
     }
     
     public void setGameFrame(Drawer d)
@@ -80,11 +82,6 @@ public class Board extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Time Left : ");
@@ -217,7 +214,7 @@ public class Board extends javax.swing.JFrame {
         );
         gameFrameLayout.setVerticalGroup(
             gameFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,39 +273,32 @@ public class Board extends javax.swing.JFrame {
         gameEngine=new Engine(levels[levelPassed],this);
         this.restartField.setVisible(false);
         this.gameFrame.setVisible(true);
+        this.gameFrame.setFocusable(true);
     }//GEN-LAST:event_restartButtonMouseClicked
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int arrowKey = e.getKeyCode();
-                int direction;
-                if (arrowKey == KeyEvent.VK_LEFT) {
-                    gameEngine.runMovingCondition(1);
-                }
-                else if (arrowKey == KeyEvent.VK_UP) {
-                    gameEngine.runMovingCondition(0);
-                }
-                else if (arrowKey == KeyEvent.VK_RIGHT) {
-                    gameEngine.runMovingCondition(3);
-                }
-                else if (arrowKey == KeyEvent.VK_DOWN) {
-                    gameEngine.runMovingCondition(2);
-                }
-                System.out.println("di situ xxx");
-            }});
-    }//GEN-LAST:event_formKeyPressed
 
     private void startButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startButtonMouseClicked
         this.statField.setVisible(true);
         this.homePage.setVisible(false);
         this.gameFrame.setVisible(true);
         gameEngine=new Engine(levels[levelPassed],this);
+        this.gameFrame.setFocusable(true);
     }//GEN-LAST:event_startButtonMouseClicked
 
     private void gameFrameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gameFrameKeyPressed
-        
+        int arrowKey = evt.getKeyCode();
+        int direction;
+        if (arrowKey == KeyEvent.VK_LEFT) {
+            gameEngine.runMovingCondition(1);
+        }
+        else if (arrowKey == KeyEvent.VK_UP) {
+            gameEngine.runMovingCondition(0);
+        }
+        else if (arrowKey == KeyEvent.VK_RIGHT) {
+            gameEngine.runMovingCondition(3);
+        }
+        else if (arrowKey == KeyEvent.VK_DOWN) {
+            gameEngine.runMovingCondition(2);
+        }
     }//GEN-LAST:event_gameFrameKeyPressed
 
     public void gameOver()
@@ -372,4 +362,5 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JPanel statField;
     private javax.swing.JLabel timeLabel;
     // End of variables declaration//GEN-END:variables
+
 }
