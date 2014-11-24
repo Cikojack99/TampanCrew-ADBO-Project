@@ -124,10 +124,14 @@ public class LevelZero extends Level {
         obstacles[5]=new FinishLineDoor();
         
         petaLevel[6][13]=new Maps("obstacle","silverDoor");
+        petaLevel[7][13] = petaLevel[6][13];
         petaLevel[21][15]=new Maps("obstacle","greenDoor");
+        petaLevel[22][15] = petaLevel[21][15];
         petaLevel[13][13]=new Maps("obstacle","brownDoor");
+        petaLevel[14][13] = petaLevel[13][13];
         petaLevel[17][6]=new Maps("obstacles","guardian");
         petaLevel[29][11]=new Maps("obstacle","FinishLineDoor");
+        petaLevel[29][10] = petaLevel[29][11];
         
         for (int i = 14; i <= 17; i++) {
             petaLevel[11][i]=laser;

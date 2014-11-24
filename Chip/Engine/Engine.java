@@ -61,9 +61,9 @@ public class Engine {
     public void updateEngine(Level level)
     {
         player.setPosition(level.getStartingPosition());
-//        drawer = new Drawer(level, board, player);
-        status.statusReset();;
+        status.statusReset();
         obstacles=level.getObstacles();
+        drawer.updateDrawer(level, player);
         this.peta = level.getMaps();
     }
     
@@ -202,7 +202,11 @@ public class Engine {
         }
         else if(peta[x][y].getTypeKind().contains("finishLineDoor"))
         {
-            typeKind=5;
+            if(player.diamondReqChecker()==true)
+                    {
+                        player.move(x,y);
+                        //display v sign
+                    }
         }
         
         

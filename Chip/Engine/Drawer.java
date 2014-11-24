@@ -54,6 +54,14 @@ public class Drawer extends JPanel{
         f.setVisible(false);
     }
     
+    public void updateDrawer(Level stage, Player player)
+    {
+        this.level=stage;
+        this.player=player;
+        orientation="right";
+        repaint();
+    }
+    
     @Override
     /**
      * menggambar background
@@ -90,16 +98,9 @@ public class Drawer extends JPanel{
             itemInMap = ImageIO.read(imgUrl);
         } catch (IOException ex) {
             Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }        
-        String xxx="";
+        }
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 22; j++) {
-                if(map[i][j]==null)
-                {
-                    xxx="null, "+i+" , "+j;
-                } else {
-                    xxx= map[i][j].getType();
-                }
                 if(map[i][j]!=null && map[i][j].getTypeKind().contains(type))
                 {
                     gd.drawImage(itemInMap, i*20, j*20, 20, 20, null);
