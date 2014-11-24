@@ -54,8 +54,9 @@ public class Status implements ActionListener{
      */
     public void countDown()
     {
-        if(time==0)
+        if(time<=0)
         {
+            time=0;
             timer.stop();
             engine.playerIsDead();
         }
@@ -72,10 +73,8 @@ public class Status implements ActionListener{
      */
     public void timePenalty(int penalty)
     {
-        for(int i=0;i<penalty;i++)
-        {
-            countDown();
-        }
+        time=time-penalty;
+        engine.displayTimeLeft(time);
     }
 
     @Override

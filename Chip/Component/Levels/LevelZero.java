@@ -164,7 +164,7 @@ public class LevelZero extends Level {
 
     @Override
     public void drawSecret() {
-        Maps wall = new Maps("wall", "wall");
+        Maps wall = new Maps("wall", "wallDoang");
         for (int i = 0; i <= 3; i++) {
             petaLevel[i][18]=wall;
         }

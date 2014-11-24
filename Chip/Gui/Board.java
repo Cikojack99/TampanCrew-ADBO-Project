@@ -69,6 +69,11 @@ public class Board extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Time Left : ");
@@ -127,11 +132,7 @@ public class Board extends javax.swing.JFrame {
                 .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        gameField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                gameFieldKeyPressed(evt);
-            }
-        });
+        gameField.setVerifyInputWhenFocusTarget(false);
         gameField.setLayout(new java.awt.CardLayout());
 
         homePage.setToolTipText("");
@@ -203,7 +204,7 @@ public class Board extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, 0)
-                    .addComponent(gameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gameField, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -224,7 +225,7 @@ public class Board extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, 0)
-                    .addComponent(gameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gameField, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -254,7 +255,7 @@ public class Board extends javax.swing.JFrame {
         this.restartField.setVisible(false);
     }//GEN-LAST:event_restartButtonMouseClicked
 
-    private void gameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gameFieldKeyPressed
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         int arrowKey = evt.getKeyCode();
         int direction;
         if (arrowKey == KeyEvent.VK_LEFT) {
@@ -269,7 +270,7 @@ public class Board extends javax.swing.JFrame {
         else if (arrowKey == KeyEvent.VK_DOWN) {
             gameEngine.runMovingCondition(2);
         }
-    }//GEN-LAST:event_gameFieldKeyPressed
+    }//GEN-LAST:event_formKeyPressed
 
     public void gameOver()
     {

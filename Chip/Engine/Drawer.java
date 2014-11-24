@@ -32,13 +32,14 @@ public class Drawer extends JPanel{
     private Player player;
     private String picName="tegel.jpg";
     private String type="wall";
+    private Level level;
     int delX=0;
     int delY=0;
     String orientation="right";
     
     public Drawer(Level stage, JPanel panel, Player player) {
         panel.add(this);
-        Level level = stage;
+        level = stage;
         level.initializeLevel();
         map = level.getMaps();
         at = new AffineTransform();
@@ -71,7 +72,7 @@ public class Drawer extends JPanel{
                 gd.drawImage(itemInMap, i, j, 100, 100, null);
             }
         }
-        drawDeletedItem(delX, delY);
+        drawDeleteItem();
         rotateCharacther(orientation);
     }
 
@@ -112,8 +113,7 @@ public class Drawer extends JPanel{
      * @param i koordinat x yang akan dihapus 
      * @param j koordinat y yang akan dihapus
      */
-    public void drawDeletedItem(int i, int j) {
-        map[i][j]=null;
+    public void drawDeleteItem() {
         drawLevel("brick.jpg", "wall");
         drawLevel("diamond.png", "diamond");
 //        drawLevel(".png", "silverDoor");
@@ -127,6 +127,11 @@ public class Drawer extends JPanel{
 //        drawLevel(".png", "mirrorArmor");
 //        drawLevel(".png", "silentBoots");
         drawLaser();
+    }
+    
+    public void drawDeletedItem(int i, int j) {
+        map[i][j]=null;
+        drawDeleteItem();
     }
     
     /**
@@ -280,6 +285,12 @@ public class Drawer extends JPanel{
     public void rotateChar(String direction)
     {
         this.orientation=direction;
+        repaint();
+    }
+    
+    public void drawSecret()
+    {
+        level.drawSecret();
         repaint();
     }
 }

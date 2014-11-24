@@ -78,8 +78,8 @@ public class Engine {
         if(direction==0)
         {
             drawer.rotateChar("up");
-            x=(int)(player.getCurPosition().getX()+1);
-            y=(int)(player.getCurPosition().getY());
+            x=(int)(player.getCurPosition().getX());
+            y=(int)(player.getCurPosition().getY()-1);
         }
         else if(direction==1)
         {
@@ -91,34 +91,41 @@ public class Engine {
         {
             drawer.rotateChar("down");
             x=(int)(player.getCurPosition().getX());
-            y=(int)(player.getCurPosition().getY()-1);
+            y=(int)(player.getCurPosition().getY()+1);
         }
         else if(direction==3)
         {
             drawer.rotateChar("right");
-            x=(int)(player.getCurPosition().getX());
-            y=(int)(player.getCurPosition().getY()+1);
+            x=(int)(player.getCurPosition().getX()+1);
+            y=(int)(player.getCurPosition().getY());
         }
-        if(peta[x][y]!=null) //keatas
+        if(peta[x][y]!=null)
         {
-            if(peta[x][y].getType().compareToIgnoreCase("wall")==1)
+            if(peta[x][y].getType().contains("wallDoang"))
             {
                 wallCondition(x,y);
+            } 
+            else if(peta[x][y].getType().contains("invisible"))
+            {
+                drawer.drawSecret();
             }
-            else if(peta[x][y].getType().compareToIgnoreCase("item")==1)
+            else if(peta[x][y].getType().contains("item"))
             {
                 itemCondition(x,y);
+                
             }
-            else if(peta[x][y].getType().compareToIgnoreCase("obstacle")==1)
+            else if(peta[x][y].getType().contains("obstacle"))
             {
                 obstaclesCondition(x,y);
             }
+        } else {
+            player.move(x, y);
         }
     }
     
     public void wallCondition(int x, int y)
     {
-        status.timePenalty(4);
+        status.timePenalty(2);
     }
     
     public void itemCondition(int x, int y)
@@ -128,6 +135,7 @@ public class Engine {
         //x,y.
         player.takeItem(peta[x][y].getTypeKind());
         peta[x][y]=null;
+        drawer.drawDeletedItem(x, y);
     }
     
     public void obstaclesCondition(int x,int y)

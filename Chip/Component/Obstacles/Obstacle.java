@@ -6,8 +6,6 @@
 
 package Chip.Component.Obstacles;
 
-import java.awt.Point;
-
 /**
  *
  * @author TampanCrew Arts
