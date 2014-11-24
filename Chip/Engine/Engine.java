@@ -111,7 +111,7 @@ public class Engine {
         }
         if(peta[x][y]!=null)
         {
-            System.out.println(peta[x][y].getType());
+                                                System.out.println(peta[x][y].getTypeKind());
             if(peta[x][y].getTypeKind().contains("wallDoang"))
             {
                 wallCondition(x,y);
@@ -170,41 +170,43 @@ public class Engine {
      */
     public void obstaclesCondition(int x,int y)
     {
-         int typeKind=0;
-                if(peta[x][y].getTypeKind().contains("brownDoor"))
-                {
-                    typeKind=0;
-                }
-                else if(peta[x][y].getTypeKind().contains("silverDoor"))
-                {
-                    typeKind=1;
-                }
-                else if(peta[x][y].getTypeKind().contains("greenDoor"))
-                {
-                    typeKind=2;
-                }
-                else if(peta[x][y].getTypeKind().contains("laser"))
-                {
-                    typeKind=3;
-                }
-                else if(peta[x][y].getTypeKind().contains("sleepingGuardRadius"))
-                {
-                    typeKind=4;
-                }
-                else if(peta[x][y].getTypeKind().contains("finishLineDoor"))
-                {
-                    typeKind=5;
-                }
-                if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
-                {
-                    player.move(x,y);
-                }
-                else
-                {
-                    if(obstacles[typeKind].getResInDeath()==true) {
-                        player.move(x,y);
-                        playerIsDead();
-                    }
-                }
+        int typeKind=0;
+        if(peta[x][y].getTypeKind().contains("brownDoor"))
+        {
+            typeKind=0;
+        }
+        else if(peta[x][y].getTypeKind().contains("silverDoor"))
+        {
+            typeKind=1;
+        }
+        else if(peta[x][y].getTypeKind().contains("greenDoor"))
+        {
+            typeKind=2;
+        }
+        else if(peta[x][y].getTypeKind().contains("laser"))
+        {
+            typeKind=3;
+        }
+        else if(peta[x][y].getTypeKind().contains("sleepingGuardRadius"))
+        {
+            typeKind=4;
+        }
+        else if(peta[x][y].getTypeKind().contains("finishLineDoor"))
+        {
+            typeKind=5;
+        }
+        
+        
+        if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
+        {
+            player.move(x,y);
+        }
+        else
+        {
+            if(obstacles[typeKind].getResInDeath()==true) {
+                player.move(x,y);
+                playerIsDead();
+            }
+        }
     }
 }

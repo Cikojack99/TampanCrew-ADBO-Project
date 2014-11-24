@@ -85,16 +85,17 @@ public class Player {
     public boolean checkInventory(String itemType)
     {
         String checker="";
+        boolean isInventoryContained=false;
         for(int i=0;i<inventory.size();i++)
         {
             checker=(String)inventory.removeFirst();
             if(checker.contains(itemType))
             {
-                return true;
+                isInventoryContained = true;
             }
             inventory.addLast(checker);
         }
-        return false;
+        return isInventoryContained;
     }
     
     /**
