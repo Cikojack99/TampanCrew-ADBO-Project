@@ -43,6 +43,7 @@ public class Engine {
      */
     private Drawer drawer;
     
+    Level stage;
     /**
      * Constructor ini berfungsi untuk menginisialisasi semua attribute dalam
      * sebuah engine yang diambil dari class level.
@@ -50,6 +51,7 @@ public class Engine {
      */
      public Engine(Level level, Board board)
     {
+        stage=level;
         player=new Player(level.getStartingPosition());
         drawer = new Drawer(level, board, player);
         this.board=board;
@@ -120,13 +122,13 @@ public class Engine {
         }
         if(peta[x][y]!=null)
         {
-                                                System.out.println(peta[x][y].getTypeKind());
             if(peta[x][y].getTypeKind().contains("wallDoang"))
             {
                 wallCondition(x,y);
             } 
             else if(peta[x][y].getTypeKind().contains("invisible"))
             {
+                stage.drawSecret(x, y);
                 drawer.drawSecret();
             }
             else if(peta[x][y].getType().contains("item"))

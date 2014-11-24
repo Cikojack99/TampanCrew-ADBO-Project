@@ -41,6 +41,7 @@ public class Board extends javax.swing.JFrame{
         this.restartField.setVisible(false);
         this.gameFrame.setVisible(false);
         this.homePage.setVisible(true);
+        hintField.setVisible(false);
         levelPassed=0;
         levels=new Level[Level.levelCount];
         levels[0]=new LevelZero();
@@ -74,6 +75,9 @@ public class Board extends javax.swing.JFrame{
         jLabel5 = new javax.swing.JLabel();
         restartButton = new javax.swing.JButton();
         gameFrame = new javax.swing.JInternalFrame();
+        hintField = new javax.swing.JPanel();
+        hintLabel = new javax.swing.JLabel();
+        OKButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -209,7 +213,39 @@ public class Board extends javax.swing.JFrame{
         );
         gameFrameLayout.setVerticalGroup(
             gameFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGap(0, 457, Short.MAX_VALUE)
+        );
+
+        hintLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        hintLabel.setText("-");
+
+        OKButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        OKButton.setText("OK");
+        OKButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OKButtonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout hintFieldLayout = new javax.swing.GroupLayout(hintField);
+        hintField.setLayout(hintFieldLayout);
+        hintFieldLayout.setHorizontalGroup(
+            hintFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hintFieldLayout.createSequentialGroup()
+                .addContainerGap(174, Short.MAX_VALUE)
+                .addGroup(hintFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(162, 162, 162))
+        );
+        hintFieldLayout.setVerticalGroup(
+            hintFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hintFieldLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(hintLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,6 +269,11 @@ public class Board extends javax.swing.JFrame{
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(gameFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 200, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(hintField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(200, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +293,12 @@ public class Board extends javax.swing.JFrame{
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(gameFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 18, Short.MAX_VALUE)))
+                    .addGap(0, 14, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(hintField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(33, Short.MAX_VALUE)))
         );
 
         try {
@@ -273,11 +319,9 @@ public class Board extends javax.swing.JFrame{
     }//GEN-LAST:event_restartButtonMouseClicked
 
     private void startButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startButtonMouseClicked
-        this.statField.setVisible(true);
         this.homePage.setVisible(false);
-        this.gameFrame.setVisible(true);
-        gameEngine=new Engine(levels[levelPassed],this);
-        this.gameFrame.setFocusable(true);
+        this.hintField.setVisible(true);
+        this.hintLabel.setText(levels[levelPassed].getHint());
     }//GEN-LAST:event_startButtonMouseClicked
 
     private void gameFrameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gameFrameKeyPressed
@@ -296,6 +340,14 @@ public class Board extends javax.swing.JFrame{
             gameEngine.runMovingCondition(2);
         }
     }//GEN-LAST:event_gameFrameKeyPressed
+
+    private void OKButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKButtonMouseClicked
+        this.statField.setVisible(true);
+        this.gameFrame.setVisible(true);
+        this.hintField.setVisible(false);
+        gameEngine=new Engine(levels[levelPassed],this);
+        this.gameFrame.setFocusable(true);
+    }//GEN-LAST:event_OKButtonMouseClicked
 
     public void gameOver()
     {
@@ -344,8 +396,11 @@ public class Board extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton OKButton;
     private javax.swing.JLabel diamondCountLabel;
     private javax.swing.JInternalFrame gameFrame;
+    private javax.swing.JPanel hintField;
+    private javax.swing.JLabel hintLabel;
     private javax.swing.JPanel homePage;
     private javax.swing.JLabel inventoryLabel;
     private javax.swing.JLabel jLabel1;

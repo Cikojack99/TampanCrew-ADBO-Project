@@ -159,7 +159,6 @@ public class LevelZero extends Level {
         Maps diamond=new Maps("item","diamond");
         petaLevel[10][6]=new Maps("item","silverKey");
         petaLevel[10][14]=new Maps("item","greenKey");
-        petaLevel[2][19]=new Maps("item","mirrorArmor");
         petaLevel[17][17]=new Maps("item","brownKey");
         petaLevel[12][12]=new Maps("item","silentBoots");
 
@@ -171,19 +170,28 @@ public class LevelZero extends Level {
     }
 
     @Override
-    public void drawSecret() {
-        Maps wall = new Maps("wall", "wallDoang");
-        for (int i = 0; i <= 3; i++) {
-            petaLevel[i][18]=wall;
+    public void drawSecret(int x, int y) {
+        if(x==4 && (y==19 || y==20))
+        {
+            Maps wall = new Maps("wall", "wallDoang");
+            for (int i = 0; i <= 3; i++) {
+                petaLevel[i][18]=wall;
+            }
+            for (int i = 0; i <= 3; i++) {
+                petaLevel[i][21]=wall;
+            }
+            petaLevel[0][19]=wall;
+            petaLevel[0][20]=wall;
+
+            petaLevel[4][19]=null;
+            petaLevel[4][20]=null;
+
+            petaLevel[2][19]=new Maps("item","mirrorArmor");
+        } else if (x==22 && y==7)
+        {
+            petaLevel[x][y]=null;
         }
-        for (int i = 0; i <= 3; i++) {
-            petaLevel[i][21]=wall;
-        }
-        petaLevel[0][19]=wall;
-        petaLevel[0][20]=wall;
         
-        petaLevel[4][19]=null;
-        petaLevel[4][20]=null;
     }
 
     @Override
@@ -196,6 +204,12 @@ public class LevelZero extends Level {
     public int getWidth()
     {
         return 30;
+    }
+
+    @Override
+    public String getHint() {
+        String hint = "Ambilah kunci untuk membuka pintu \n Jauhi Laser \n Hati hati dengan penjaga";
+        return hint;
     }
 
 }

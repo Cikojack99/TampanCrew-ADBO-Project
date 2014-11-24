@@ -121,7 +121,7 @@ public abstract class Level {
     /**
      * menggambar peta bagian rahasia yang muncul bila Wall tertentu ditembus
      */
-    public abstract void drawSecret();
+    public abstract void drawSecret(int x, int y);
     
     /**
      * mendapatkan tinggi dari map level
@@ -145,4 +145,6 @@ public abstract class Level {
     {
         return petaLevel[i][j];
     }
+    
+    public abstract String getHint();
 }

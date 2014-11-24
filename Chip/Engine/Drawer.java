@@ -118,17 +118,17 @@ public class Drawer extends JPanel{
     public void drawDeleteItem() {
         drawLevel("brick.jpg", "wall");
         drawLevel("diamond.png", "diamond");
-//        drawLevel(".png", "silverDoor");
-//        drawLevel(".png", "greenDoor");
-//        drawLevel(".png", "brownDoor");
-//        drawLevel(".png", "FinishLineDoor");
-//        drawLevel(".png", "guardian");
-//        drawLevel(".png", "silverKey");
-//        drawLevel(".png", "greenKey");
-//        drawLevel(".png", "brownKey");
-//        drawLevel(".png", "mirrorArmor");
-//        drawLevel(".png", "silentBoots");
-        drawLaser();
+        drawObstacle("white", "silverDoor");
+        drawObstacle("green", "greenDoor");
+        drawObstacle("brown", "brownDoor");
+        drawObstacle("exit", "FinishLineDoor");
+        drawLevel("guard.png", "guardian");
+        drawLevel("white key.jpg", "silverKey");
+        drawLevel("green key.jpg", "greenKey");
+        drawLevel("brown key.png", "brownKey");
+        drawLevel("armor.jpg", "mirrorArmor");
+        drawLevel("boot.jpg", "silentBoots");
+        drawObstacle("laser", "laser");
     }
     
     public void drawDeletedItem(int i, int j) {
@@ -217,9 +217,16 @@ public class Drawer extends JPanel{
             rotateChar(direction);
         }
     }
-
-    private void drawLaser() {
-        imgUrl = getClass().getClassLoader().getResource("laser.jpg");
+    
+    private void drawObstacle(String picName, String type) {
+        String pic="";
+        if(type.contains("Door"))
+        {
+            pic = picName+" door wide.jpg";
+        } else {
+            pic = picName+".jpg";
+        }
+        imgUrl = getClass().getClassLoader().getResource(pic);
         itemInMap = null;
         try {
             itemInMap = ImageIO.read(imgUrl);
@@ -228,13 +235,13 @@ public class Drawer extends JPanel{
         }        
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 22; j++) {
-                if(map[i][j]!=null && map[i][j].getTypeKind().contains("laser"))
+                if(map[i][j]!=null && map[i][j].getTypeKind().contains(type))
                 {
                     int size=0;
-                    if(map[i][j+1]!=null && map[i][j+1].getTypeKind().contains("laser"))
+                    if(map[i][j+1]!=null && map[i][j+1].getTypeKind().contains(type))
                     {
                         for (int k = j+1; k < 22; k++) {
-                            if(map[i][k]!=null && map[i][k].getTypeKind().contains("laser"))
+                            if(map[i][k]!=null && map[i][k].getTypeKind().contains(type))
                             {
                                 size++;
                             } else {
@@ -244,7 +251,7 @@ public class Drawer extends JPanel{
                         }
                         gd.drawImage(itemInMap, i*20, (j-(size+1))*20, 20, (size+1)*20, null);
                     }
-                    else if((map[i][j+1]!=null && !map[i][j+1].getTypeKind().contains("laser")) && (map[i+1][j]==null))
+                    else if((map[i][j+1]!=null && !map[i][j+1].getTypeKind().contains(type)) && (map[i+1][j]==null))
                     {
                         gd.drawImage(itemInMap, i*20, j*20, 20, 20, null);
                     }
@@ -252,7 +259,13 @@ public class Drawer extends JPanel{
             }
         }
         
-        imgUrl = getClass().getClassLoader().getResource("laserDatar.jpg");
+        if(type.contains("Door"))
+        {
+            pic = picName+" door long.jpg";
+        } else {
+            pic = picName+"Datar.jpg";
+        }
+        imgUrl = getClass().getClassLoader().getResource(pic);
         try {
             itemInMap = ImageIO.read(imgUrl);
         } catch (IOException ex) {
@@ -260,13 +273,13 @@ public class Drawer extends JPanel{
         }
         for (int i = 0; i < 30; i++) {
             for (int j = 0; j < 22; j++) {
-                if(map[i][j]!=null && map[i][j].getTypeKind().contains("laser"))
+                if(map[i][j]!=null && map[i][j].getTypeKind().contains(type))
                 {
                     int size=0;
-                    if(map[i+1][j]!=null && map[i+1][j].getTypeKind().contains("laser"))
+                    if((i+1) < 30 && map[i+1][j]!=null && map[i+1][j].getTypeKind().contains(type))
                     {
                         for (int k = i+1; k < 22; k++) {
-                            if(map[k][j]!=null && map[k][j].getTypeKind().contains("laser"))
+                            if(map[k][j]!=null && map[k][j].getTypeKind().contains(type))
                             {
                                 size++;
                             } else {
@@ -275,7 +288,7 @@ public class Drawer extends JPanel{
                             }
                         }
                         gd.drawImage(itemInMap, (i-(size+1))*20, j*20, (size+1)*20, 20, null);
-                    } else if((map[i][j+1]==null) && (map[i+1][j]!=null && !map[i+1][j].getType().contains("laser")))
+                    } else if((map[i][j+1]==null) && (map[i+1][j]!=null && !map[i+1][j].getType().contains(type)))
                     {
                         gd.drawImage(itemInMap, i*20, j*20, 20, 20, null);
                     }
@@ -292,7 +305,6 @@ public class Drawer extends JPanel{
     
     public void drawSecret()
     {
-        level.drawSecret();
         repaint();
     }
 }
