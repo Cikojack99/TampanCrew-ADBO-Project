@@ -29,7 +29,7 @@ public class LevelZero extends Level {
 
 @Override
     public void initializeWalls() {
-        Maps wall = new Maps("wall", "wall");
+        Maps wall = new Maps("wall", "wallDoang");
         
         for (int i = 5; i <= 18; i++) {
             petaLevel[4][i]=wall;
@@ -177,6 +177,9 @@ public class LevelZero extends Level {
         }
         petaLevel[0][19]=wall;
         petaLevel[0][20]=wall;
+        
+        petaLevel[4][19]=null;
+        petaLevel[4][20]=null;
     }
 
     @Override

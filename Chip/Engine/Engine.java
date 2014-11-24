@@ -9,7 +9,6 @@ import Chip.Component.Levels.Level;
 import Chip.Component.Obstacles.*;
 import Chip.Component.Status;
 import Chip.Gui.Board;
-import javax.swing.JPanel;
 
 /**
  *
@@ -51,12 +50,12 @@ public class Engine {
      */
      public Engine(Level level, Board board)
     {
-        this.board=board;
         player=new Player(level.getStartingPosition());
+        drawer = new Drawer(level, board, player);
+        this.board=board;
         status=new Status(level.getTime(),this);
         obstacles=level.getObstacles();
         this.peta = level.getMaps();
-        drawer = new Drawer(level, board, player);
     }
     
     /**
@@ -112,11 +111,12 @@ public class Engine {
         }
         if(peta[x][y]!=null)
         {
-            if(peta[x][y].getType().contains("wallDoang"))
+            System.out.println(peta[x][y].getType());
+            if(peta[x][y].getTypeKind().contains("wallDoang"))
             {
                 wallCondition(x,y);
             } 
-            else if(peta[x][y].getType().contains("invisible"))
+            else if(peta[x][y].getTypeKind().contains("invisible"))
             {
                 drawer.drawSecret();
             }
@@ -204,10 +204,6 @@ public class Engine {
                     if(obstacles[typeKind].getResInDeath()==true) {
                         player.move(x,y);
                         playerIsDead();
-                    }
-                    else if(obstacles[typeKind].getResInDeath()==false)
-                    {
-                        status.timePenalty(4);
                     }
                 }
     }

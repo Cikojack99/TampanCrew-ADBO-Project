@@ -70,16 +70,6 @@ public class Status implements ActionListener{
         engine.displayTimeLeft(time);
     }
 
-    /** Mengurangi attribute time dengan penalty yang diberikan dikarenakan suatu hal yang akan di handle 
-     *  di engine.
-     *  @param penalty Banyaknya pengurangan waktu yang dikurangan ke time.
-     */
-    public void timePenalty(int penalty)
-    {
-        time=time-penalty;
-        engine.displayTimeLeft(time);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         countDown();
