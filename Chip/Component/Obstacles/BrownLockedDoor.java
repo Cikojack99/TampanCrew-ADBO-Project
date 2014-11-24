@@ -1,17 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class ini berfungsi untuk menyimpan attribute antiObstacle dan menentukan apakah obstacle ini berakibat
+ * dengan kematian dengan resInDeath.
  */
 
 package Chip.Component.Obstacles;
 
 /**
  *
- * @author Seto
+ * @author TampanCrew Arts (Harseto and Alvin)
+ * @version 0.5 BETA
  */
 public class BrownLockedDoor extends Obstacle {
     
+    /**
+     * Constructor untuk menginisialisasi antiObstacle dan resInDeath
+     */
     public BrownLockedDoor()
     {
         antiObstacle="brownKey";

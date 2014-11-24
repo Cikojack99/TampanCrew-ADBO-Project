@@ -26,19 +26,22 @@ public class Engine {
      */
     private Status status;
     /**
-     * Attribute array of walls.
+     * Attribute board.
      */
-    
     private Board board;
-      
-    private Wall[] walls;
     /**
      * Attribute array of obstacles. 
      */
     private Obstacle[] obstacles; 
     
+    /**
+     * Attribute 2 array dari Maps.
+     */
     private Maps peta[][];
     
+    /**
+     * Attribute drawer.
+     */
     private Drawer drawer;
     
     /**
@@ -46,7 +49,7 @@ public class Engine {
      * sebuah engine yang diambil dari class level.
      * @param level Level yang sekarang akan dijalankan engine.
      */
-    public Engine(Level level, Board board)
+     public Engine(Level level, Board board)
     {
         this.board=board;
         player=new Player(level.getStartingPosition());
@@ -56,20 +59,28 @@ public class Engine {
         drawer = new Drawer(level, board, player);
     }
     
+    /**
+     * Memberitahu board bahwa player sudah mati, agar board bisa menampilkan kolom gameOver.
+     */
     public void playerIsDead()
     {
         board.gameOver();
     }
     
+    /**
+     * Memberitahu board berapa time yang status punya pada saat ini, agar board bisa menupdate timenya.
+     * @param time 
+     */
     public void displayTimeLeft(int time)
     {
         board.updateTime(time);
     }
 
     /**
-     * (To be writen)
-     * @param direction null
-     * @return null
+     * Menentukan kondisi yang dialamin player pada saat dia bergerak, tergantung apa yang ada diarah
+     * gerakannya.
+     * @param direction direction yang diambil player yang sudah di translate menjadi String yang simpel,
+     * 0=Up, 1=left, 2=down, 3=right.
      */
     public void runMovingCondition(int direction)
     {   
@@ -118,57 +129,74 @@ public class Engine {
             {
                 obstaclesCondition(x,y);
             }
-        } else {
+        } 
+        else 
+        {
             player.move(x, y);
         }
     }
     
+    /**
+     * Method yang dijalankan oleh runMovingCondition dan tidak bisa dijalankan oleh method lain, berfungsi
+     * untuk memanggil suara ketika menabrak tembok. (To be implemented)
+     * @param x Koordinat x posisi potensi player.
+     * @param y Koordinat y posisi potensi player.
+     */
     public void wallCondition(int x, int y)
     {
-        status.timePenalty(2);
+       //suara kalau sempet.
     }
     
+    /**
+     * Method yang dijalankan oleh runMovingCondition dan tidak bisa dijalankan oleh method lain, berfungsi
+     * untuk memanggil suara(To be implemented), pergerakan player dan pengambilan item, dan pendeletetan item.
+     * @param x Koordinat x posisi potensi player.
+     * @param y Koordinat y posisi potensi player.
+     */
     public void itemCondition(int x, int y)
     {
         player.move(x,y);
-        //Ini kan si player bergerak, jadi gerakin animasi dan visualnya serta ilangin item yang ada di 
-        //x,y.
         player.takeItem(peta[x][y].getTypeKind());
         peta[x][y]=null;
         drawer.drawDeletedItem(x, y);
     }
     
+    /**
+     * Method yang dijalankan oleh runMovingCondition dan tidak bisa dijalankan oleh method lain, berfungsi
+     * untuk memanggil suara ketika menabrak obstacles, pergerakan player jika punya item yang merupakan
+     * antiObstaclesnya, dan pemanggil playerIsDead jika player menabrak obstacle yang resInDeath=true.
+     * @param x Koordinat x posisi potensi player.
+     * @param y Koordinat y posisi potensi player.
+     */
     public void obstaclesCondition(int x,int y)
     {
          int typeKind=0;
-                if(peta[x][y].getTypeKind().compareToIgnoreCase("brownDoor")==1)
+                if(peta[x][y].getTypeKind().contains("brownDoor"))
                 {
                     typeKind=0;
                 }
-                else if(peta[x][y].getTypeKind().compareToIgnoreCase("silverDoor")==1)
+                else if(peta[x][y].getTypeKind().contains("silverDoor"))
                 {
                     typeKind=1;
                 }
-                else if(peta[x][y].getTypeKind().compareToIgnoreCase("greenDoor")==1)
+                else if(peta[x][y].getTypeKind().contains("greenDoor"))
                 {
                     typeKind=2;
                 }
-                else if(peta[x][y].getTypeKind().compareToIgnoreCase("laser")==1)
+                else if(peta[x][y].getTypeKind().contains("laser"))
                 {
                     typeKind=3;
                 }
-                else if(peta[x][y].getTypeKind().compareToIgnoreCase("sleepingGuardRadius")==1)
+                else if(peta[x][y].getTypeKind().contains("sleepingGuardRadius"))
                 {
                     typeKind=4;
                 }
-                else if(peta[x][y].getTypeKind().compareToIgnoreCase("finishLineDoor")==1)
+                else if(peta[x][y].getTypeKind().contains("finishLineDoor"))
                 {
                     typeKind=5;
                 }
                 if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
                 {
-                    //ini kan si player bergerak dan karena dia udah punya anti obstacles, untuk saat ini
-                    //ga usah diilangin dulu obstacles nya dehh.
                     player.move(x,y);
                 }
                 else

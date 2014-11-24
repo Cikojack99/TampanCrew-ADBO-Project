@@ -7,8 +7,6 @@
 package Chip.Component;
 
 import Chip.Engine.Engine;
-import Chip.Engine.Engine;
-import Chip.Gui.Board;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -16,41 +14,46 @@ import javax.swing.Timer;
 /**
  *
  * @author TampanCrew Arts (Harseto and Alvin)
- * @version 0.02 ALPHA
+ * @version 0.5 BETA
  */
 public class Status implements ActionListener{
     
     /**
-     * int banyaknya time yang player butuhkan yang akan berakibat di game over, boolean dead=true
+     * int banyaknya time yang player butuhkan yang akan berakibat di game over, akan memanggil method
+     * playerIsDead yang ada di Engine jika time ini = 0
      * jika waktu ini mencapai angka 0.
      */
     private int time;
     
+    /**
+     * Timer agar si time bisa berkurang setiap detiknya, mengsimulisasikan sebuah countdown, attribute ini
+     * bawaan dari java. For more Information please see the javadocs.
+     */
     private Timer timer;
     
-    private Board board;
-    
+    /**
+     * Engine dari game, berfungsi untuk mempermudah berkomunikasi antara Status dan Board, untuk update
+     * waktu kedisplay dan memberitahu board bahwa player sudah mati karena habis waktu.
+     */
     private Engine engine;
 
     /**
      * Constructor ini berfungsi untuk menginisialisasi status boolean dead dan boolean clear menjadi
      * false, dan waktu awal yang dihandle di engine dan diambil dari level.
-     * @param time int banyaknya time yang player butuhkan.
-     * @param board
-     * @param engine
+     * @param time int banyaknya time yang ada di suatu level.
+     * @param engine Engine dari game, berfungsi untuk mempermudah berkomunikasi antara Status dan Board.
      */
     public Status(int time, Engine engine) {
         this.time = time;
-        this.board = board;
         this.engine = engine;
         timer=new Timer(1000,this);
         timer.start();
     }
 
     /**
-     * Countdown mechanic dari game, akan berkurang terus timenya dan jika time=0, maka game akan berhasil
-     * dan player dianggap mati.
-     * @return int time sisa waktu yang player punya.
+     * Countdown mechanic dari game, akan dipanggil terus menerus melalui Timer dan jika waktu sudah
+     * mencapai angka 0 maka game akan berakhir dalam game over, method ini juga memberitahu engine agar 
+     * engine dapat mengupdate time yang ditampilkan didisplay.
      */
     public void countDown()
     {

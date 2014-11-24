@@ -1,6 +1,8 @@
 /**
  * Class Maps ini berfungsi sebagai penyimpan kordinat di sebuah game field, agar memudahkan penggambaran dan
- * pengambilan koordinat di kelas engine.
+ * pengambilan koordinat di kelas engine. 1 Maps berisi type dan typeKind yang berupa sebuah String id yang
+ * menentukan di koordinat itu ada apa, di Kelas engine, maps ini akan dibuat sebagai array 2 dimensi agar bisa
+ * mensimulisasikan koordinat x dan y.
  */
 
 package Chip.Component;
@@ -8,7 +10,7 @@ package Chip.Component;
 /**
  *
  * @author TampanCrew arts (Harseto and Alvin)
- * @version 0.04 ALPHA
+ * @version 0.5 BETA
  */
 public class Maps {
     /**

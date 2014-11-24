@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class ini adalah turunan dari kelas Level, semua deskripsi ada di kelas level. More information in Level
+ * javadocs.
  */
 
 package Chip.Component.Levels;
@@ -12,10 +11,15 @@ import java.awt.Point;
 
 /**
  *
- * @author Seto
+ * @author TampanCrew Arts (Harseto and Alvin)
+ * @version 0.5 BETA
  */
 public class LevelZero extends Level {
 
+    /**
+     * Constructor ini menginisialisasi batas waktu dilevel, posisi awal player, banyak 2 array map yang
+     * dibutuhkan, dan array jenis-jenis obstacles.
+     */
     public LevelZero() {
         time=60;
         playerStartingPosition.setLocation(5, 7);
@@ -122,7 +126,7 @@ public class LevelZero extends Level {
         petaLevel[6][13]=new Maps("obstacle","silverDoor");
         petaLevel[21][15]=new Maps("obstacle","greenDoor");
         petaLevel[13][13]=new Maps("obstacle","brownDoor");
-        petaLevel[17][6]=new Maps("prop","guardian");
+        petaLevel[17][6]=new Maps("obstacles","guardian");
         petaLevel[29][11]=new Maps("obstacle","FinishLineDoor");
         
         for (int i = 14; i <= 17; i++) {

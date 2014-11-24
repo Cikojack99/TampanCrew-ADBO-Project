@@ -11,7 +11,7 @@ import java.util.LinkedList;
 /**
  *
  * @author TampanCrew Arts (Harseto and Alvin)
- * @version 0.03 ALPHA
+ * @version 0.5 BETA
  */
 public class Player {
    
@@ -69,7 +69,7 @@ public class Player {
     public void takeItem(String itemType)
     {
         inventory.addFirst(itemType);
-        if(itemType.compareToIgnoreCase("diamond")==1)
+        if(itemType.contains("diamond"))
         {
             diamondCount++;
         }
@@ -88,7 +88,7 @@ public class Player {
         for(int i=0;i<inventory.size();i++)
         {
             checker=(String)inventory.removeFirst();
-            if(checker.compareToIgnoreCase(itemType)==1)
+            if(checker.contains(itemType))
             {
                 return true;
             }

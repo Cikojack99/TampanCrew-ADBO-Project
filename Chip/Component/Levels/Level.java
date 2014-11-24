@@ -1,6 +1,7 @@
 /*
- * Class ini berfungsi sebagai template untuk menginisialisasi sebuah level, class
- * ini akan memiliki banyak inheritance yang berupa level 1,2,3 dan seterusnya.
+ * Class ini berfungsi sebagai template untuk menginisialisasi time, playerStartingPosition, dan petaLevel
+ * yang berisi koordinat, fungsi Maps bisa diliat di javadocs Maps. Kelas ini akan memiliki banyak 
+ * inheritance yang berupa level 1,2,3 dan seterusnya.
  */
 
 package Chip.Component.Levels;
@@ -11,44 +12,49 @@ import java.awt.Point;
 
 /**
  *
- * @author TampanCrew Arts
- * @version 0.02 ALPHA
+ * @author TampanCrew Arts (Harseto and Alvin)
+ * @version 0.5 BETA
  */
 public abstract class Level {
 
     /**
-     * Seluruh kordinat dari object di level.
+     * Array 2 dimensi yang mensimulisasikan sebuah Maps dengan koordinat x dan y, more information in Maps
+     * javadocs.
      */
     protected Maps petaLevel[][];
     
     /**
-     * Batasan waktu dalam sebuah level.
+     * Batasan waktu dalam sebuah level, more information in time javadocs in Status class.
      */
     protected int time;
     
     /**
-     * Posisi awal player dalam sebuah level.
+     * Posisi awal player dalam sebuah level, akan dipakai didalam constructor player.
      */
     protected Point playerStartingPosition;
 
     /**
-     * Seluruh array dari Obstacles yang ada di level.
+     * Seluruh array dari Obstacles yang ada di level yang terdiri dari semua turunan kelas Obstacle.
      */
     protected Obstacle obstacles[];
     
+    /**
+     * Jumlah level yang ada di game pada saat ini.
+     */
     public static final int levelCount=2;
     
     /**
-     * Constructor ini berfungsi untuk menginisialisasi batasan waktu dan posisi 
-     * player dalam sebuah level.
-     * @param time Batasan waktu sebuah level.
-     * @param playerStartingPosition Posisi awal player pada sebuah level.
+     * Constructor ini berfungsi untuk membuat point baru untuk playerstartingposition, constructor ini akan
+     * diperpanjang di kelas inheritancenya.
      */
     public Level()
     {
         playerStartingPosition=new Point();
     }
     
+    /**
+     * Menjalankan seluruh initialize yang ada di level.
+     */
     public void initializeLevel()
     {
         initializeWalls();
@@ -56,10 +62,20 @@ public abstract class Level {
         initializeItems();
     }
     
+    /**
+     * Menginisialisi semua walls yang ada di level, memasuk semua id wall kedalam petaLevel.
+     */
     public abstract void initializeWalls();
     
+    /**
+     * Menginisialisi semua obstacles yang ada di level, memasuk semua id obstacles kedalam petaLevel, dan
+     * juga menginsialisasi array obstacle yang isinya jenis-jenis obstacles.
+     */
     public abstract void initializeObstacles();
     
+    /**
+     * Menginisialisi semua items yang ada di level, memasuk semua id items kedalam petaLevel.
+     */
     public abstract void initializeItems();
     
     /**
@@ -85,7 +101,7 @@ public abstract class Level {
     /**
      * Method ini berfungsi untuk memanggil sebuah array Obstacle yang akan
      * digunakan oleh class Board dan Engine.
-     * @return Array Obstacles.
+     * @return Array dari jenis-jenis Obstacles.
      */
     public Obstacle[] getObstacles()
     {
@@ -95,7 +111,7 @@ public abstract class Level {
     /**
      * Method ini berfungsi untuk memanggil petaLevel yang akan digunakan 
      * oleh class Board dan Engine.
-     * @return Array Items.
+     * @return Array 2 dimensi semua maps yang mensimulisasikan peta koordinat.
      */
     public Maps[][] getMaps()
     {
