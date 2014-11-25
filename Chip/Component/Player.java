@@ -27,13 +27,16 @@ public class Player {
     
     private int diamondCount;
     
+    private int diamondTotal;
+    
     /**
      * Constructur ini berfungsi untuk menginisialisasikan startingPosition player dalam sebuah level dan
      * menginisialisasi LinkedList dari attribute inventory.
      * @param startingPosition Attribute currentPosition.
      */
-    public Player(Point startingPosition)
+    public Player(Point startingPosition, int diamondTotal)
     {
+        this.diamondTotal = diamondTotal;
         inventory=new LinkedList();
         currentPosition=startingPosition;
         diamondCount=0;
@@ -110,7 +113,7 @@ public class Player {
      */
     public boolean diamondReqChecker()
     {
-        if(diamondCount<5)
+        if(diamondCount<diamondTotal)
         {
             return false;
         }

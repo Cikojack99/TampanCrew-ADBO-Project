@@ -90,7 +90,7 @@ public class Drawer extends JPanel{
      * @param picName nama file gambar yang akan digunakan
      * @param type jenis tipe apa yang akan digambar
      */    
-    private void drawLevel(String picName, String type)
+    private void drawItem(String picName, String type)
     {
         imgUrl = getClass().getClassLoader().getResource(picName);
         itemInMap = null;
@@ -116,18 +116,18 @@ public class Drawer extends JPanel{
      * @param j koordinat y yang akan dihapus
      */
     public void drawDeleteItem() {
-        drawLevel("brick.jpg", "wall");
-        drawLevel("diamond.png", "diamond");
+        drawItem("brick.jpg", "wall");
+        drawItem("diamond.png", "diamond");
         drawObstacle("white", "silverDoor");
         drawObstacle("green", "greenDoor");
         drawObstacle("brown", "brownDoor");
         drawObstacle("exit", "FinishLineDoor");
-        drawLevel("guard.png", "guardian");
-        drawLevel("white key.jpg", "silverKey");
-        drawLevel("green key.jpg", "greenKey");
-        drawLevel("brown key.png", "brownKey");
-        drawLevel("armor.jpg", "mirrorArmor");
-        drawLevel("boot.jpg", "silentBoots");
+        drawItem("guard.png", "guardian");
+        drawItem("white key.jpg", "silverKey");
+        drawItem("green key.jpg", "greenKey");
+        drawItem("brown key.png", "brownKey");
+        drawItem("armor.jpg", "mirrorArmor");
+        drawItem("boot.jpg", "silentBoots");
         drawObstacle("laser", "laser");
     }
     

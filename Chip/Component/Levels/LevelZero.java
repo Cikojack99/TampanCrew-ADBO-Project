@@ -212,4 +212,9 @@ public class LevelZero extends Level {
         return hint;
     }
 
+    @Override
+    public int getSumOfDiamond() {
+        return 5;
+    }
+
 }

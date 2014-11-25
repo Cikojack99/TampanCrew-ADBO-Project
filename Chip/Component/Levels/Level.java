@@ -147,4 +147,6 @@ public abstract class Level {
     }
     
     public abstract String getHint();
+    
+    public abstract int getSumOfDiamond();
 }

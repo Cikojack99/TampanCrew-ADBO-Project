@@ -52,7 +52,7 @@ public class Engine {
      public Engine(Level level, Board board)
     {
         stage=level;
-        player=new Player(level.getStartingPosition());
+        player=new Player(level.getStartingPosition(), level.getSumOfDiamond());
         drawer = new Drawer(level, board, player);
         this.board=board;
         status=new Status(level.getTime(),this);
@@ -202,10 +202,12 @@ public class Engine {
         {
             typeKind=4;
         }
-        else if(peta[x][y].getTypeKind().contains("finishLineDoor"))
+        else if(peta[x][y].getTypeKind().contains("FinishLineDoor"))
         {
             if(player.diamondReqChecker()==true)
                     {
+                        board.setGameFrameVisible(false);
+                        board.setVictoryFieldVisible(true);
                         player.move(x,y);
                         //display v sign
                     }
