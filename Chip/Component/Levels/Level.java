@@ -1,9 +1,3 @@
-/*
- * Class ini berfungsi sebagai template untuk menginisialisasi time, playerStartingPosition, dan petaLevel
- * yang berisi koordinat, fungsi Maps bisa diliat di javadocs Maps. Kelas ini akan memiliki banyak 
- * inheritance yang berupa level 1,2,3 dan seterusnya.
- */
-
 package Chip.Component.Levels;
 
 import Chip.Component.*;
@@ -11,9 +5,11 @@ import Chip.Component.Obstacles.*;
 import java.awt.Point;
 
 /**
- *
+ * Class ini berfungsi sebagai template untuk menginisialisasi time, playerStartingPosition, dan petaLevel
+ * yang berisi koordinat, fungsi Maps bisa diliat di javadocs Maps. Kelas ini akan memiliki banyak 
+ * inheritance yang berupa level 1,2,3 dan seterusnya.
  * @author TampanCrew Arts (Harseto and Alvin)
- * @version 0.5 BETA
+ * @version 1.0 Early Access
  */
 public abstract class Level {
 
@@ -49,7 +45,7 @@ public abstract class Level {
      */
     public Level()
     {
-        playerStartingPosition=new Point();
+        this.playerStartingPosition=new Point();
     }
     
     /**
@@ -57,26 +53,26 @@ public abstract class Level {
      */
     public void initializeLevel()
     {
-        initializeWalls();
-        initializeObstacles();
-        initializeItems();
+        this.initializeWalls();
+        this.initializeObstacles();
+        this.initializeItems();
     }
     
     /**
      * Menginisialisi semua walls yang ada di level, memasuk semua id wall kedalam petaLevel.
      */
-    public abstract void initializeWalls();
+    protected abstract void initializeWalls();
     
     /**
      * Menginisialisi semua obstacles yang ada di level, memasuk semua id obstacles kedalam petaLevel, dan
      * juga menginsialisasi array obstacle yang isinya jenis-jenis obstacles.
      */
-    public abstract void initializeObstacles();
+    protected abstract void initializeObstacles();
     
     /**
      * Menginisialisi semua items yang ada di level, memasuk semua id items kedalam petaLevel.
      */
-    public abstract void initializeItems();
+    protected abstract void initializeItems();
     
     /**
      * Method ini berfungsi untuk memanggil attribute time yang akan digunakan 
@@ -85,7 +81,7 @@ public abstract class Level {
      */
     public int getTime()
     {
-        return time;
+        return this.time;
     }
     
     /**
@@ -95,7 +91,7 @@ public abstract class Level {
      */
     public Point getStartingPosition()
     {
-        return playerStartingPosition;
+        return this.playerStartingPosition;
     }
     
     /**
@@ -105,7 +101,7 @@ public abstract class Level {
      */
     public Obstacle[] getObstacles()
     {
-        return obstacles;
+        return this.obstacles;
     }
 
     /**
@@ -115,7 +111,7 @@ public abstract class Level {
      */
     public Maps[][] getMaps()
     {
-        return petaLevel;
+        return this.petaLevel;
     }
     
     /**
@@ -146,7 +142,17 @@ public abstract class Level {
         return petaLevel[i][j];
     }
     
+    /**
+     * method ini berisikan hint mengenai level.
+     * awali string dengan <html> dan akhiri dengan </html>
+     * untuk membuat bari baru gunakan tag <br>
+     * @return hint level ini dalam bentuk string
+     */
     public abstract String getHint();
     
+    /**
+     * method ini berfungsi untuk mengembalikan jumlah diamond dalam level
+     * @return jumlah diamond dalam level
+     */
     public abstract int getSumOfDiamond();
 }

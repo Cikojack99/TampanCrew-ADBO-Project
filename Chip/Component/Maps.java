@@ -1,16 +1,12 @@
+package Chip.Component;
+
 /**
  * Class Maps ini berfungsi sebagai penyimpan kordinat di sebuah game field, agar memudahkan penggambaran dan
  * pengambilan koordinat di kelas engine. 1 Maps berisi type dan typeKind yang berupa sebuah String id yang
  * menentukan di koordinat itu ada apa, di Kelas engine, maps ini akan dibuat sebagai array 2 dimensi agar bisa
  * mensimulisasikan koordinat x dan y.
- */
-
-package Chip.Component;
-
-/**
- *
  * @author TampanCrew arts (Harseto and Alvin)
- * @version 0.5 BETA
+ * @version 1.0 Early Access
  */
 public class Maps {
     /**
@@ -49,7 +45,7 @@ public class Maps {
      */
     public String getType()
     {
-        return type;
+        return this.type;
     }
     
     /**
@@ -58,6 +54,6 @@ public class Maps {
      */
     public String getTypeKind()
     {
-        return typeKind;
+        return this.typeKind;
     }
 }

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Chip.Gui;
 
 import Chip.Component.Levels.*;
@@ -19,18 +13,30 @@ import javax.swing.Timer;
  * @version 0.01 ALPHA
  */
 public class Board extends javax.swing.JFrame{
+    /**
+     * engine yang akan menjalankan game ini
+     */
+    private Engine gameEngine;
     
-    Engine gameEngine;
+    /**
+     * array bertipe Level yang akan menampung data data level game ini
+     */
+    private Level[] levels;    
     
-    Level[] levels;
+    /**
+     * atribut ini adalah index untuk level yang sudah dilewati
+     */
+    private int levelPassed;    
     
-    int levelPassed;
+    /**
+     * atribut untuk menjalankan pengurangan waktu per detik
+     */
+    private Timer timer;    
     
-    Timer timer;
-    
-    Status status;
-    
-    Drawer dr;
+    /**
+     * atribut untuk menyimpan status permainan 
+     */
+    private Status status;
 
     /**
      * Creates new form Board
@@ -41,29 +47,45 @@ public class Board extends javax.swing.JFrame{
         this.restartField.setVisible(false);
         this.gameFrame.setVisible(false);
         this.homePage.setVisible(true);
-        hintField.setVisible(false);
-        victoryField.setVisible(false);
-        levelPassed=0;
-        levels=new Level[Level.levelCount];
-        levels[0]=new LevelZero();
-        levels[1]=new LevelOne();
+        this.hintField.setVisible(false);
+        this.victoryField.setVisible(false);
+        this.levelPassed=0;
+        this.levels=new Level[Level.levelCount];
+        this.levels[0]=new LevelZero();
+        this.levels[1]=new LevelOne();
     }
     
+    /**
+     * method ini berfungsi untuk memasukan drawer kedalam internal frame
+     * @param d drawer yang akan dimasukan
+     */
     public void setGameFrame(Drawer d)
     {
         this.gameFrame.getContentPane().add(d);
     }
     
+    /**
+     * method ini berfungsi untuk memasukan hint level yang sedang dimainkan
+     * @param level level yang akan dimunculkan hintnya
+     */
     public void setHint(Level level)
     {
         this.hintLabel.setText(level.getHint());
     }
     
+    /**
+     * method untuk mengubah visibility dari gameFrame
+     * @param tf kondisi tampilan gameFrame, true untuk memunculkan, false untuk menghilangkan
+     */
     public void setGameFrameVisible(boolean tf)
     {
         this.gameFrame.setVisible(tf);
     }
     
+    /**
+     * method untuk mengubah visibility dari victoryField
+     * @param tf kondisi tampilan gameFrame, true untuk memunculkan, false untuk menghilangkan
+     */
     public void setVictoryFieldVisible(boolean tf)
     {
         winLabel.setText("Selamat!! Level telah dilewati^^");
@@ -375,11 +397,8 @@ public class Board extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void restartButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restartButtonMouseClicked
-        
+        OKButtonMouseClicked(evt);
         this.restartField.setVisible(false);
-        this.gameFrame.setVisible(true);
-        gameEngine.updateEngine(levels[levelPassed]);
-        this.gameFrame.setFocusable(true);
     }//GEN-LAST:event_restartButtonMouseClicked
 
     private void startButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startButtonMouseClicked
@@ -437,6 +456,9 @@ public class Board extends javax.swing.JFrame{
         
     }//GEN-LAST:event_NextButtonMouseClicked
 
+    /**
+     * method ini berfungsi untuk mengantur tampilan saat game berakhir dengan kekalahan
+     */
     public void gameOver()
     {
         this.gameFrame.setVisible(false);
@@ -446,6 +468,10 @@ public class Board extends javax.swing.JFrame{
         }
     }
     
+    /**
+     * method ini akan menampilkan waktu yang tersisa 
+     * @param timeLeft waktu yang tersisa
+     */
     public void updateTime(int timeLeft)
     {
         this.timeLabel.setText(""+timeLeft);

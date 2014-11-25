@@ -1,7 +1,3 @@
-/*
- * Class ini berfungsi sebagai class utama untuk mengoperasikan game Heist.
- */
-
 package Chip.Engine;
 
 import Chip.Component.*;
@@ -11,9 +7,9 @@ import Chip.Component.Status;
 import Chip.Gui.Board;
 
 /**
- *
- * @author TampanCrew Arts
- * @version 0.01 VinS_Alpha_Run
+ * Class ini berfungsi sebagai class utama untuk mengoperasikan game Maling Challenge.
+ * @author TampanCrew arts (Harseto and Alvin)
+ * @version 1.0 Early Access
  */
 public class Engine {
     /**
@@ -43,7 +39,11 @@ public class Engine {
      */
     private Drawer drawer;
     
-    Level stage;
+    /**
+     * Attribute level yang akan dipakai dalam permainan ini
+     */
+    private Level stage;
+    
     /**
      * Constructor ini berfungsi untuk menginisialisasi semua attribute dalam
      * sebuah engine yang diambil dari class level.
@@ -51,40 +51,50 @@ public class Engine {
      */
      public Engine(Level level, Board board)
     {
-        stage=level;
-        player=new Player(level.getStartingPosition(), level.getSumOfDiamond());
-        drawer = new Drawer(level, board, player);
+        this.stage=level;
+        this.player=new Player(level.getStartingPosition(), level.getSumOfDiamond());
+        this.drawer = new Drawer(level, board, player);
         this.board=board;
-        status=new Status(level.getTime(),this);
-        obstacles=level.getObstacles();
+        this.status=new Status(level.getTime(),this);
+        this.obstacles=level.getObstacles();
         this.peta = level.getMaps();
     }
      
+     /**
+     * method ini berfungsi untuk mengupdate isi level
+     * @param level Level yang sekarang akan dijalankan engine.
+     */
     public void updateEngine(Level level)
     {
-        player.setPosition(level.getStartingPosition());
-        status.statusReset();
-        obstacles=level.getObstacles();
-        drawer.updateDrawer(level, player);
+        this.player.setPosition(level.getStartingPosition());
+        this.status.statusReset();
+        this.obstacles=level.getObstacles();
+        this.drawer.updateDrawer(level, player);
         this.peta = level.getMaps();
     }
     
+    /**
+     * method ini adalah semi-constructor
+     * dipisahkan dari constructor untuk menghindari terjadinya double engine
+     * bila dibuat new Drawer9)
+     * @param level level baru yang akan dijalankan
+     */
     public void updateNewEngine(Level level)
     {
-        stage=level;
+        this.stage = level;
         this.peta = level.getMaps();
-        player.updatePlayer(level.getStartingPosition(), level.getSumOfDiamond());
-        drawer.clear();
-        status.statusReset();
-        obstacles=level.getObstacles();
-        drawer.updateDrawer(stage, player);
+        this.player.updatePlayer(level.getStartingPosition().x, level.getStartingPosition().y, level.getSumOfDiamond());
+        this.drawer.repaint();
+        this.status.statusReset();
+        this.obstacles=level.getObstacles();
+        this.drawer.updateDrawer(stage, player);
     }
     /**
      * Memberitahu board bahwa player sudah mati, agar board bisa menampilkan kolom gameOver.
      */
     public void playerIsDead()
     {
-        board.gameOver();
+        this.board.gameOver();
     }
     
     /**
@@ -93,7 +103,7 @@ public class Engine {
      */
     public void displayTimeLeft(int time)
     {
-        board.updateTime(time);
+        this.board.updateTime(time);
     }
 
     /**
@@ -108,64 +118,49 @@ public class Engine {
         int y=0;
         if(direction==0)
         {
-            drawer.rotateChar("up");
-            x=(int)(player.getCurPosition().getX());
-            y=(int)(player.getCurPosition().getY()-1);
+            this.drawer.rotateChar("up");
+            x=(int)(this.player.getCurPosition().getX());
+            y=(int)(this.player.getCurPosition().getY()-1);
         }
         else if(direction==1)
         {
-            drawer.rotateChar("left");
-            x=(int)(player.getCurPosition().getX()-1);
-            y=(int)(player.getCurPosition().getY());
+            this.drawer.rotateChar("left");
+            x=(int)(this.player.getCurPosition().getX()-1);
+            y=(int)(this.player.getCurPosition().getY());
         }
         else if(direction==2)
         {
-            drawer.rotateChar("down");
-            x=(int)(player.getCurPosition().getX());
-            y=(int)(player.getCurPosition().getY()+1);
+            this.drawer.rotateChar("down");
+            x=(int)(this.player.getCurPosition().getX());
+            y=(int)(this.player.getCurPosition().getY()+1);
         }
         else if(direction==3)
         {
-            drawer.rotateChar("right");
-            x=(int)(player.getCurPosition().getX()+1);
-            y=(int)(player.getCurPosition().getY());
+            this.drawer.rotateChar("right");
+            x=(int)(this.player.getCurPosition().getX()+1);
+            y=(int)(this.player.getCurPosition().getY());
         }
-        if(peta[x][y]!=null)
+        if(this.peta[x][y]!=null)
         {
-            if(peta[x][y].getTypeKind().contains("wallDoang"))
+            if(this.peta[x][y].getTypeKind().contains("invisible"))
             {
-                wallCondition(x,y);
-            } 
-            else if(peta[x][y].getTypeKind().contains("invisible"))
-            {
-                stage.drawSecret(x, y);
-                drawer.drawSecret();
+                this.stage.drawSecret(x, y);
+                this.drawer.drawSecret();
             }
-            else if(peta[x][y].getType().contains("item"))
+            else if(this.peta[x][y].getType().contains("item"))
             {
-                itemCondition(x,y);
+                this.itemCondition(x,y);
                 
             }
-            else if(peta[x][y].getType().contains("obstacle"))
+            else if(this.peta[x][y].getType().contains("obstacle"))
             {
-                obstaclesCondition(x,y);
+                this.obstaclesCondition(x,y);
             }
         } 
         else 
         {
-            player.move(x, y);
+            this.player.move(x, y);
         }
-    }
-    
-    /**
-     * Method yang dijalankan oleh runMovingCondition dan tidak bisa dijalankan oleh method lain, berfungsi
-     * untuk memanggil suara ketika menabrak tembok. (To be implemented)
-     * @param x Koordinat x posisi potensi player.
-     * @param y Koordinat y posisi potensi player.
-     */
-    public void wallCondition(int x, int y)
-    {
-       //suara kalau sempet.
     }
     
     /**
@@ -176,10 +171,10 @@ public class Engine {
      */
     public void itemCondition(int x, int y)
     {
-        player.move(x,y);
-        player.takeItem(peta[x][y].getTypeKind());
-        peta[x][y]=null;
-        drawer.drawDeletedItem(x, y);
+        this.player.move(x,y);
+        this.player.takeItem(this.peta[x][y].getTypeKind());
+        this.peta[x][y]=null;
+        this.drawer.drawDeletedItem(x, y);
     }
     
     /**
@@ -192,53 +187,47 @@ public class Engine {
     public void obstaclesCondition(int x,int y)
     {
         int typeKind=0;
-        if(peta[x][y].getTypeKind().contains("brownDoor"))
+        if(this.peta[x][y].getTypeKind().contains("brownDoor"))
         {
             typeKind=0;
         }
-        else if(peta[x][y].getTypeKind().contains("silverDoor"))
+        else if(this.peta[x][y].getTypeKind().contains("silverDoor"))
         {
             typeKind=1;
         }
-        else if(peta[x][y].getTypeKind().contains("greenDoor"))
+        else if(this.peta[x][y].getTypeKind().contains("greenDoor"))
         {
             typeKind=2;
         }
-        else if(peta[x][y].getTypeKind().contains("laser"))
+        else if(this.peta[x][y].getTypeKind().contains("laser"))
         {
             typeKind=3;
         }
-        else if(peta[x][y].getTypeKind().contains("sleepingGuardRadius"))
+        else if(this.peta[x][y].getTypeKind().contains("sleepingGuardRadius"))
         {
             typeKind=4;
         }
-        else if(peta[x][y].getTypeKind().contains("FinishLineDoor"))
+        else if(this.peta[x][y].getTypeKind().contains("FinishLineDoor"))
         {
-            if(player.diamondReqChecker()==true)
+            if(this.player.diamondReqChecker()==true)
                     {
-                        board.setGameFrameVisible(false);
-                        board.setVictoryFieldVisible(true);
-                        player.move(x,y);
-                        //display v sign
+                        this.board.setGameFrameVisible(false);
+                        this.board.setVictoryFieldVisible(true);
+                        this.player.move(x,y);
                     }
         }
         
         
-        if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
+        if(this.player.checkInventory(this.obstacles[typeKind].getAntiObstacle())==true)
         {
-            player.move(x,y);
+            this.player.move(x,y);
         }
         else
         {
-            if(obstacles[typeKind].getResInDeath()==true) {
-                player.move(x,y);
-                playerIsDead();
+            if(this.obstacles[typeKind].getResInDeath()==true) {
+                this.player.move(x,y);
+                this.playerIsDead();
             }
         }
-    }
-    public void kill()
-    {
-        status.statusKill();
-        drawer.drawerKill();
     }
 }

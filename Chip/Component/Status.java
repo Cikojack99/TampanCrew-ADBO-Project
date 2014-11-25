@@ -1,9 +1,3 @@
-/*
- * Class untuk menghandle status-status seperti apakah player sudah mati atau belum melalu attribute
- * boolean dead, waktu melalui attribute int time, apakah stage sudah selesai atau belum melalui
- * attribute boolean clear.
- */
-
 package Chip.Component;
 
 import Chip.Engine.Engine;
@@ -12,9 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 /**
- *
+ * Class untuk menghandle status-status seperti apakah player sudah mati atau belum melalu attribute
+ * boolean dead, waktu melalui attribute int time, apakah stage sudah selesai atau belum melalui
+ * attribute boolean clear.
  * @author TampanCrew Arts (Harseto and Alvin)
- * @version 0.5 BETA
+ * @version 1.0 Early Access
  */
 public class Status implements ActionListener{
     
@@ -37,7 +33,10 @@ public class Status implements ActionListener{
      */
     private Engine engine;
     
-    private int timeDefault;
+    /**
+     * 
+     */
+    private final int timeDefault;
 
     /**
      * Constructor ini berfungsi untuk menginisialisasi status boolean dead dan boolean clear menjadi
@@ -49,20 +48,25 @@ public class Status implements ActionListener{
         this.time = time;
         this.timeDefault=time;
         this.engine = engine;
-        timer=new Timer(1000,this);
-        timer.start();
+        this.timer=new Timer(1000,this);
+        this.timer.start();
     }
     
+    /**
+     * method ini berfungsi untuk melakukan pengesetan ulang waktu untuk setiap levelnya
+     */
     public void statusReset()
     {
-        timer.stop();
+        this.timer.stop();
         this.time=this.timeDefault;
-        timer.start();
+        this.timer.start();
     }
-    
+    /**
+     * method ini berfungsi untuk mematikan timer yang sedang berjalan
+     */
     public void statusKill()
     {
-        timer.stop();
+        this.timer.stop();
     }
 
     /**
@@ -72,21 +76,21 @@ public class Status implements ActionListener{
      */
     public void countDown()
     {
-        if(time<=0)
+        if(this.time<=0)
         {
-            time=0;
-            timer.stop();
-            engine.playerIsDead();
+            this.time=0;
+            this.timer.stop();
+            this.engine.playerIsDead();
         }
         else
         {
-            time--;
+            this.time--;
         }
-        engine.displayTimeLeft(time);
+        this.engine.displayTimeLeft(this.time);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        countDown();
+        this.countDown();
     }
 }

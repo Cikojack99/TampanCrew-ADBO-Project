@@ -1,17 +1,13 @@
-/*
- * Class untuk mengandalikan movement dengan cara memindahkan currentPosition ke posisi yang akan dituju
- * seperti atas, kanan, kiri, bawah dan inventory player dengan cara menyimpan id nama dari item yang bisa 
- * dibandingkan di kelas lain.
- */
-
 package Chip.Component;
 import java.awt.Point;
 import java.util.LinkedList;
 
 /**
- *
+ * Class untuk mengandalikan movement dengan cara memindahkan currentPosition ke posisi yang akan dituju
+ * seperti atas, kanan, kiri, bawah dan inventory player dengan cara menyimpan id nama dari item yang bisa 
+ * dibandingkan di kelas lain.
  * @author TampanCrew Arts (Harseto and Alvin)
- * @version 0.5 BETA
+ * @version 1.0 Early Access
  */
 public class Player {
    
@@ -25,34 +21,52 @@ public class Player {
      */
     private LinkedList inventory;
     
+    /**
+     * Jumlah dari diamond yang sudah diambil oleh player
+     */
     private int diamondCount;
     
+    /**
+     * Jumlah dari diamond yang harus diambil oleh player
+     */
     private int diamondTotal;
     
     /**
      * Constructur ini berfungsi untuk menginisialisasikan startingPosition player dalam sebuah level dan
      * menginisialisasi LinkedList dari attribute inventory.
      * @param startingPosition Attribute currentPosition.
+     * @param diamondTotal menginisialisasi jumlah diamond yang harus diambil
      */
     public Player(Point startingPosition, int diamondTotal)
     {
         this.diamondTotal = diamondTotal;
-        inventory=new LinkedList();
-        currentPosition=startingPosition;
-        diamondCount=0;
+        this.inventory=new LinkedList();
+        this.currentPosition=new Point();
+        this.currentPosition.setLocation(startingPosition.x, startingPosition.y);
+        this.diamondCount=0;
     }
     
-    public void updatePlayer(Point startingPosition, int diamondTotal)
+    /**
+     * method ini berfungsi untuk menginisialisasikan startingPosition player dalam sebuah level dan
+     * menginisialisasi LinkedList dari attribute inventory.
+     * @param startingPosition Attribute currentPosition.
+     * @param diamondTotal menginisialisasi jumlah diamond yang harus diambil
+     */
+    public void updatePlayer(int x, int y, int diamondTotal)
     {
         this.diamondTotal = diamondTotal;
-        inventory=new LinkedList();
-        currentPosition=startingPosition;
-        diamondCount=0;
+        this.inventory=new LinkedList();
+        this.currentPosition.setLocation(x, y);
+        this.diamondCount=0;
     }
-    
-    public void setPosition(Point startingPosition)
+    /**
+     * method ini berfungsi untuk mengubah posisi (x,y) player saat ini
+     * dengan posisi baru
+     * @param newPosition posisi baru untuk player
+     */
+    public void setPosition(Point newPosition)
     {
-        currentPosition=startingPosition;
+        this.currentPosition=newPosition;
     }
     
     /**
@@ -64,7 +78,7 @@ public class Player {
      */
     public void move(int x, int y)
     {
-        currentPosition.move(x, y);
+        this.currentPosition.move(x, y);
     }
     
     /**
@@ -74,7 +88,7 @@ public class Player {
      */
     public Point getCurPosition()
     {
-        return currentPosition;
+        return this.currentPosition;
     }
     
     /**
@@ -84,10 +98,10 @@ public class Player {
      */
     public void takeItem(String itemType)
     {
-        inventory.addFirst(itemType);
+        this.inventory.addFirst(itemType);
         if(itemType.contains("diamond"))
         {
-            diamondCount++;
+            this.diamondCount++;
         }
     }
     
@@ -102,14 +116,14 @@ public class Player {
     {
         String checker="";
         boolean isInventoryContained=false;
-        for(int i=0;i<inventory.size();i++)
+        for(int i=0;i<this.inventory.size();i++)
         {
-            checker=(String)inventory.removeFirst();
+            checker=(String)this.inventory.removeFirst();
             if(checker.contains(itemType))
             {
                 isInventoryContained = true;
             }
-            inventory.addLast(checker);
+            this.inventory.addLast(checker);
         }
         return isInventoryContained;
     }
@@ -121,7 +135,7 @@ public class Player {
      */
     public boolean diamondReqChecker()
     {
-        if(diamondCount<diamondTotal)
+        if(this.diamondCount<this.diamondTotal)
         {
             return false;
         }
