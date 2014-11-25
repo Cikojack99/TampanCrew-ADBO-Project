@@ -59,6 +59,11 @@ public class Status implements ActionListener{
         this.time=this.timeDefault;
         timer.start();
     }
+    
+    public void statusKill()
+    {
+        timer.stop();
+    }
 
     /**
      * Countdown mechanic dari game, akan dipanggil terus menerus melalui Timer dan jika waktu sudah

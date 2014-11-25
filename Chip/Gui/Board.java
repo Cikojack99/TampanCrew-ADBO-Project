@@ -54,6 +54,11 @@ public class Board extends javax.swing.JFrame{
         this.gameFrame.getContentPane().add(d);
     }
     
+    public void setHint(Level level)
+    {
+        this.hintLabel.setText(level.getHint());
+    }
+    
     public void setGameFrameVisible(boolean tf)
     {
         this.gameFrame.setVisible(tf);
@@ -61,6 +66,7 @@ public class Board extends javax.swing.JFrame{
     
     public void setVictoryFieldVisible(boolean tf)
     {
+        winLabel.setText("Selamat!! Level telah dilewati^^");
         this.victoryField.setVisible(tf);
     }
             
@@ -403,19 +409,28 @@ public class Board extends javax.swing.JFrame{
         this.statField.setVisible(true);
         this.gameFrame.setVisible(true);
         this.hintField.setVisible(false);
-        gameEngine=new Engine(levels[levelPassed],this);
+        if(gameEngine==null){
+            gameEngine= new Engine(levels[levelPassed], this);
+        } else {
+            gameEngine.updateNewEngine(levels[levelPassed]);
+        }
         this.gameFrame.setFocusable(true);
     }//GEN-LAST:event_OKButtonMouseClicked
 
     private void NextButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NextButtonMouseClicked
-        levelPassed++;
+        this.levelPassed++;
         if(levelPassed<levels.length)
         {
-            hintLabel.setText("Selamat!! Level telah dilewati^^");
             this.victoryField.setVisible(false);
-            this.gameFrame.setVisible(true);
-            gameEngine.updateEngine(levels[levelPassed]);
-            this.gameFrame.setFocusable(true);
+            this.gameFrame.setVisible(false);
+            hintLabel.setText(levels[levelPassed].getHint());
+            this.hintField.setVisible(true);
+            if(gameEngine==null)
+            {
+                gameEngine=new Engine(levels[levelPassed],this);
+            } else {
+            gameEngine.updateNewEngine(levels[levelPassed]);
+        }
         } else {
             hintLabel.setText("Selamat!! Game ini telah ditamatkan^^");
         }
@@ -425,7 +440,10 @@ public class Board extends javax.swing.JFrame{
     public void gameOver()
     {
         this.gameFrame.setVisible(false);
-        this.restartField.setVisible(true);
+        if(this.victoryField.isVisible()==false)
+        {
+            this.restartField.setVisible(true);
+        }
     }
     
     public void updateTime(int timeLeft)

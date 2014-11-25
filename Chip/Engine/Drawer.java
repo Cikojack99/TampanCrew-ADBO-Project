@@ -34,8 +34,10 @@ public class Drawer extends JPanel{
     private String picName="tegel.jpg";
     private String type="wall";
     private Level level;
+    private JFrame f = new JFrame("");
     int delX=0;
     int delY=0;
+    boolean dispose=false;
     String orientation="right";
     
     public Drawer(Level stage, Board board, Player player) {
@@ -45,7 +47,6 @@ public class Drawer extends JPanel{
         at = new AffineTransform();
         this.player = player;
         repaint();
-        JFrame f = new JFrame("");
         f.getContentPane().add(this);
         f.pack();
         f.setSize(620,483);
@@ -57,8 +58,10 @@ public class Drawer extends JPanel{
     public void updateDrawer(Level stage, Player player)
     {
         this.level=stage;
+        level.initializeLevel();
         this.player=player;
         orientation="right";
+//        f.getContentPane().add(this);
         repaint();
     }
     
@@ -68,21 +71,29 @@ public class Drawer extends JPanel{
      */
     public void paintComponent(Graphics g)
     {
-        gd = (Graphics2D)g;
-        imgUrl = getClass().getClassLoader().getResource("tegel.jpg");
-        itemInMap = null;
-        try {
-            itemInMap = ImageIO.read(imgUrl);
-        } catch (IOException ex) {
-            Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        for (int i = 0; i < 601; i+=100) {
-            for (int j = 0; j < 440; j+=100) {
-                gd.drawImage(itemInMap, i, j, 100, 100, null);
+        if(dispose==false)
+        {
+            gd = (Graphics2D)g;
+            imgUrl = getClass().getClassLoader().getResource("tegel.jpg");
+            itemInMap = null;
+            try {
+                itemInMap = ImageIO.read(imgUrl);
+            } catch (IOException ex) {
+                Logger.getLogger(Drawer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+            for (int i = 0; i < 601; i+=100) {
+                for (int j = 0; j < 440; j+=100) {
+                    gd.drawImage(itemInMap, i, j, 100, 100, null);
+                }
+            }
+            drawDeleteItem();
+            rotateCharacther(orientation);
+        } else
+        {
+            gd.dispose();
+            dispose=false;
         }
-        drawDeleteItem();
-        rotateCharacther(orientation);
+        
     }
 
     /**
@@ -305,6 +316,17 @@ public class Drawer extends JPanel{
     
     public void drawSecret()
     {
+        repaint();
+    }
+    
+    public void drawerKill()
+    {
+        this.removeAll();
+    }
+    
+    public void clear()
+    {
+//        this.dispose=true;
         repaint();
     }
 }

@@ -42,6 +42,14 @@ public class Player {
         diamondCount=0;
     }
     
+    public void updatePlayer(Point startingPosition, int diamondTotal)
+    {
+        this.diamondTotal = diamondTotal;
+        inventory=new LinkedList();
+        currentPosition=startingPosition;
+        diamondCount=0;
+    }
+    
     public void setPosition(Point startingPosition)
     {
         currentPosition=startingPosition;

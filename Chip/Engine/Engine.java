@@ -69,6 +69,16 @@ public class Engine {
         this.peta = level.getMaps();
     }
     
+    public void updateNewEngine(Level level)
+    {
+        stage=level;
+        this.peta = level.getMaps();
+        player.updatePlayer(level.getStartingPosition(), level.getSumOfDiamond());
+        drawer.clear();
+        status.statusReset();
+        obstacles=level.getObstacles();
+        drawer.updateDrawer(stage, player);
+    }
     /**
      * Memberitahu board bahwa player sudah mati, agar board bisa menampilkan kolom gameOver.
      */
@@ -225,5 +235,10 @@ public class Engine {
                 playerIsDead();
             }
         }
+    }
+    public void kill()
+    {
+        status.statusKill();
+        drawer.drawerKill();
     }
 }

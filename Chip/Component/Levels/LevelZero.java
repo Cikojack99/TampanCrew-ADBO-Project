@@ -126,7 +126,7 @@ public class LevelZero extends Level {
         petaLevel[6][13]=new Maps("obstacle","silverDoor");
         petaLevel[7][13] = petaLevel[6][13];
         petaLevel[21][15]=new Maps("obstacle","greenDoor");
-        petaLevel[22][15] = petaLevel[21][15];
+        petaLevel[20][15] = petaLevel[21][15];
         petaLevel[13][13]=new Maps("obstacle","brownDoor");
         petaLevel[14][13] = petaLevel[13][13];
         petaLevel[17][6]=new Maps("obstacles","guardian");
@@ -208,7 +208,7 @@ public class LevelZero extends Level {
 
     @Override
     public String getHint() {
-        String hint = "Ambilah kunci untuk membuka pintu \n Jauhi Laser \n Hati hati dengan penjaga";
+        String hint = "<html>Ambilah kunci untuk membuka pintu <br> Jauhi Laser <br> Hati hati dengan penjaga</html>";
         return hint;
     }
 
