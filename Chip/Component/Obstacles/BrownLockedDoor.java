@@ -1,10 +1,14 @@
+/*
+ * Class ini berfungsi untuk menyimpan attribute antiObstacle dan menentukan apakah obstacle ini berakibat
+ * dengan kematian dengan resInDeath.
+ */
+
 package Chip.Component.Obstacles;
 
 /**
- * Class ini berfungsi untuk menyimpan attribute antiObstacle dan menentukan apakah obstacle ini berakibat
- * dengan kematian dengan resInDeath.
+ *
  * @author TampanCrew Arts (Harseto and Alvin)
- * @version 1.0 Early Access
+ * @version 0.5 BETA
  */
 public class BrownLockedDoor extends Obstacle {
     
@@ -13,7 +17,8 @@ public class BrownLockedDoor extends Obstacle {
      */
     public BrownLockedDoor()
     {
-        this.antiObstacle="brownKey";
-        this.resInDeath=false;
+        antiObstacle="brownKey";
+        resInDeath=false;
+        obstacleName="brownDoor";
     }
 }

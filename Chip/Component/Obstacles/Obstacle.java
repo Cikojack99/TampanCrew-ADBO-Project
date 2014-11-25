@@ -1,10 +1,14 @@
+/*
+ * Class ini berfungsi untuk menyimpan attribute antiObstacle dan menentukan apakah inheritance dari Obstacle
+ * berakibat dengan kematian dengan resInDeath.
+ */
+
 package Chip.Component.Obstacles;
 
 /**
- * Class ini berfungsi untuk menyimpan attribute antiObstacle dan menentukan apakah inheritance dari Obstacle
- * berakibat dengan kematian dengan resInDeath.
+ *
  * @author TampanCrew Arts (Harseto and Alvin)
- * @version 1.0 Early Access
+ * @version 0.5 BETA
  */
 public abstract class Obstacle {
     /**
@@ -18,12 +22,17 @@ public abstract class Obstacle {
     protected boolean resInDeath;
     
     /**
+     * Sebuah String yang menyimpan nama sebuah obstacle.
+     */
+    protected String obstacleName;
+    
+    /**
      * Mengembalikan String antiObstacle yang ada di obstacle ini.
      * @return antiObstacle
      */
     public String getAntiObstacle()
     {
-        return this.antiObstacle;
+        return antiObstacle;
     }
     
     /**
@@ -33,6 +42,15 @@ public abstract class Obstacle {
      */
     public boolean getResInDeath()
     {
-        return this.resInDeath;
+        return resInDeath;
+    }
+    
+    /**
+     * Mengembalikan nama dari obstacle ini.
+     * @return obstacleName.
+     */
+    public String getObstacleName()
+    {
+        return obstacleName;
     }
 }

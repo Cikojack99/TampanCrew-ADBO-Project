@@ -49,28 +49,16 @@ public class Engine {
      * sebuah engine yang diambil dari class level.
      * @param level Level yang sekarang akan dijalankan engine.
      */
-     public Engine(Level level, Board board)
+    public Engine(Level level, Board board)
     {
-        this.stage=level;
-        this.player=new Player(level.getStartingPosition(), level.getSumOfDiamond());
-        this.drawer = new Drawer(level, board, player);
+        stage=level;
+        player=new Player(level.getStartingPosition(), level.getSumOfDiamond(),this);
+        drawer = new Drawer(level, board, player);
         this.board=board;
-        this.status=new Status(level.getTime(),this);
-        this.obstacles=level.getObstacles();
+        status=new Status(level.getTime(),this);
+        obstacles=level.getObstacles();
         this.peta = level.getMaps();
-    }
-     
-     /**
-     * method ini berfungsi untuk mengupdate isi level
-     * @param level Level yang sekarang akan dijalankan engine.
-     */
-    public void updateEngine(Level level)
-    {
-        this.player.setPosition(level.getStartingPosition());
-        this.status.statusReset();
-        this.obstacles=level.getObstacles();
-        this.drawer.updateDrawer(level, player);
-        this.peta = level.getMaps();
+        updateTotalDiamond(level.getSumOfDiamond());
     }
     
     /**
@@ -88,6 +76,7 @@ public class Engine {
         this.status.statusReset();
         this.obstacles=level.getObstacles();
         this.drawer.updateDrawer(stage, player);
+        updateTotalDiamond(level.getSumOfDiamond());
     }
     /**
      * Memberitahu board bahwa player sudah mati, agar board bisa menampilkan kolom gameOver.
@@ -104,6 +93,15 @@ public class Engine {
     public void displayTimeLeft(int time)
     {
         this.board.updateTime(time);
+    }
+    
+    /**
+     * Memberitahu board berapa diamond yang perlu diambil player pada saat ini, agar board bisa menupdatenya
+     * @param diamonds Jumlah diamond yang dibutuhkan.
+     */
+    public void updateTotalDiamond(int diamonds)
+    {
+        board.updateDiamondLeft(diamonds);
     }
 
     /**
@@ -184,49 +182,34 @@ public class Engine {
      * @param x Koordinat x posisi potensi player.
      * @param y Koordinat y posisi potensi player.
      */
-    public void obstaclesCondition(int x,int y)
+     public void obstaclesCondition(int x,int y)
     {
         int typeKind=0;
-        if(this.peta[x][y].getTypeKind().contains("brownDoor"))
+        for(int i=0;i<obstacles.length;i++)
         {
-            typeKind=0;
+            if(obstacles[i].getObstacleName().contains(peta[x][y].getTypeKind()))
+            {
+                typeKind=i;
+            }
         }
-        else if(this.peta[x][y].getTypeKind().contains("silverDoor"))
+        if(peta[x][y].getTypeKind().contains("FinishLineDoor"))
         {
-            typeKind=1;
-        }
-        else if(this.peta[x][y].getTypeKind().contains("greenDoor"))
+            if(player.diamondReqChecker()==true)
+            {
+                board.setGameFrameVisible(false);
+                board.setVictoryFieldVisible(true);
+                player.move(x,y);
+            }
+        }      
+        else if(player.checkInventory(obstacles[typeKind].getAntiObstacle())==true)
         {
-            typeKind=2;
-        }
-        else if(this.peta[x][y].getTypeKind().contains("laser"))
-        {
-            typeKind=3;
-        }
-        else if(this.peta[x][y].getTypeKind().contains("sleepingGuardRadius"))
-        {
-            typeKind=4;
-        }
-        else if(this.peta[x][y].getTypeKind().contains("FinishLineDoor"))
-        {
-            if(this.player.diamondReqChecker()==true)
-                    {
-                        this.board.setGameFrameVisible(false);
-                        this.board.setVictoryFieldVisible(true);
-                        this.player.move(x,y);
-                    }
-        }
-        
-        
-        if(this.player.checkInventory(this.obstacles[typeKind].getAntiObstacle())==true)
-        {
-            this.player.move(x,y);
+            player.move(x,y);
         }
         else
         {
-            if(this.obstacles[typeKind].getResInDeath()==true) {
-                this.player.move(x,y);
-                this.playerIsDead();
+            if(obstacles[typeKind].getResInDeath()==true) {
+                player.move(x,y);
+                playerIsDead();
             }
         }
     }

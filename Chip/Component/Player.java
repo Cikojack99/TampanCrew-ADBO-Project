@@ -1,4 +1,5 @@
 package Chip.Component;
+import Chip.Engine.Engine;
 import java.awt.Point;
 import java.util.LinkedList;
 
@@ -31,19 +32,22 @@ public class Player {
      */
     private int diamondTotal;
     
+    private Engine engine;
+    
     /**
      * Constructur ini berfungsi untuk menginisialisasikan startingPosition player dalam sebuah level dan
      * menginisialisasi LinkedList dari attribute inventory.
      * @param startingPosition Attribute currentPosition.
      * @param diamondTotal menginisialisasi jumlah diamond yang harus diambil
      */
-    public Player(Point startingPosition, int diamondTotal)
+    public Player(Point startingPosition, int diamondTotal,Engine engine)
     {
+        this.engine=engine;
         this.diamondTotal = diamondTotal;
-        this.inventory=new LinkedList();
-        this.currentPosition=new Point();
-        this.currentPosition.setLocation(startingPosition.x, startingPosition.y);
-        this.diamondCount=0;
+        inventory=new LinkedList();
+        currentPosition=new Point();
+        currentPosition.setLocation(startingPosition.x, startingPosition.y);
+        diamondCount=0;
     }
     
     /**
@@ -98,10 +102,11 @@ public class Player {
      */
     public void takeItem(String itemType)
     {
-        this.inventory.addFirst(itemType);
+        inventory.addFirst(itemType);
         if(itemType.contains("diamond"))
         {
-            this.diamondCount++;
+            diamondCount++;
+            engine.updateTotalDiamond(diamondTotal-diamondCount);
         }
     }
     

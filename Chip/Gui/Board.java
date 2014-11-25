@@ -478,6 +478,15 @@ public class Board extends javax.swing.JFrame{
     }
     
     /**
+     * method ini akan menampilkan diamond yang tersisa 
+     * @param diamonds diamonds yang tersisa
+     */
+    public void updateDiamondLeft(int diamonds)
+    {
+        this.diamondCountLabel.setText(diamonds+"");
+    }
+    
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
