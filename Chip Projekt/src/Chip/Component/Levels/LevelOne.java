@@ -16,10 +16,10 @@ public class LevelOne extends Level {
      * dibutuhkan, dan array jenis-jenis this.obstacles.
      */
     public LevelOne() {
-        this.time=60;
-        this.playerStartingPosition.setLocation(5, 7);
-        this.petaLevel=new Maps[30][22];
-        this.obstacles= new Obstacle[6];
+        time=60;
+        playerStartingPosition.setLocation(2, 2);
+        petaLevel=new Maps[30][22];
+        obstacles= new Obstacle[4];
     }
 
 @Override
